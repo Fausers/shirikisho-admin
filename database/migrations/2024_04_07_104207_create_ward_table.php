@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ward', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('region_id')->constrained('region');
-            $table->foreignId('district_id')->constrained('district');
-            $table->string('name');
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->timestamps();
-            $table->unsignedInteger('archive')->default(0);
-        });
+        if (!Schema::hasTable('ward')) {
+            Schema::create('ward', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('region_id')->constrained('region');
+                $table->foreignId('district_id')->constrained('district');
+                $table->string('name');
+                $table->foreignId('created_by')->nullable()->constrained('users');
+                $table->foreignId('updated_by')->nullable()->constrained('users');
+                $table->timestamps();
+                $table->unsignedInteger('archive')->default(0);
+            });
+        }
     }
 
     /**
@@ -31,3 +33,4 @@ return new class extends Migration
         Schema::dropIfExists('ward');
     }
 };
+

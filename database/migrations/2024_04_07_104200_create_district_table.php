@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('district', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('region_id')->constrained('region');
-            $table->string('name');
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->timestamps();
-            $table->unsignedInteger('archive')->default(0);
-        });
+        if (!Schema::hasTable('district')) {
+            Schema::create('district', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('region_id')->constrained('region');
+                $table->string('name');
+                $table->foreignId('created_by')->nullable()->constrained('users');
+                $table->foreignId('updated_by')->nullable()->constrained('users');
+                $table->timestamps();
+                $table->unsignedInteger('archive')->default(0);
+            });
+        }
     }
 
     /**
@@ -30,3 +32,4 @@ return new class extends Migration
         Schema::dropIfExists('district');
     }
 };
+

@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_vehicle', function (Blueprint $table) {
-            $table->id();
-            $table->string('vehicle_type');
-            $table->string('vehicle_number');
-            $table->string('ownership');
-            $table->string('vehicle_owner_name')->nullable();
-            $table->string('vehicle_owner_phone')->unique()->nullable();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->timestamps();
-            $table->unsignedInteger('archive')->default(0);
-        });
+        if (!Schema::hasTable('user_vehicle')) {
+            Schema::create('user_vehicle', function (Blueprint $table) {
+                $table->id();
+                $table->string('vehicle_type');
+                $table->string('vehicle_number');
+                $table->string('ownership');
+                $table->string('vehicle_owner_name')->nullable();
+                $table->string('vehicle_owner_phone')->unique()->nullable();
+                $table->foreignId('user_id')->constrained('users');
+                $table->foreignId('created_by')->nullable()->constrained('users');
+                $table->foreignId('updated_by')->nullable()->constrained('users');
+                $table->timestamps();
+                $table->unsignedInteger('archive')->default(0);
+            });
+        }
     }
 
     /**
@@ -34,3 +36,4 @@ return new class extends Migration
         Schema::dropIfExists('user_vehicle');
     }
 };
+

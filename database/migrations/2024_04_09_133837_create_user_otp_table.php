@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_otp', function (Blueprint $table) {
-            $table->id();
-            $table->string('otp_code');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->timestamps();
-            $table->unsignedInteger('archive')->default(0);
-        });
+        if (!Schema::hasTable('user_otp')) {
+            Schema::create('user_otp', function (Blueprint $table) {
+                $table->id();
+                $table->string('otp_code');
+                $table->foreignId('user_id')->constrained('users');
+                $table->foreignId('created_by')->nullable()->constrained('users');
+                $table->foreignId('updated_by')->nullable()->constrained('users');
+                $table->timestamps();
+                $table->unsignedInteger('archive')->default(0);
+            });
+        }
     }
 
     /**

@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('region', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->timestamps();
-            $table->unsignedInteger('archive')->default(0);
-        });
+        if (!Schema::hasTable('region')) {
+            Schema::create('region', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->foreignId('created_by')->nullable()->constrained('users');
+                $table->foreignId('updated_by')->nullable()->constrained('users');
+                $table->timestamps();
+                $table->unsignedInteger('archive')->default(0);
+            });
+        }
     }
 
     /**
