@@ -72,23 +72,23 @@ class ApiController extends Controller
                 'status' => 200,
                 'message' => 'success',
                 'token' => $user->createToken($request->device_name)->plainTextToken,
-                // 'user' => [
-                //     'id' => $user->id,
-                //     'full_name' => $user->full_name,
-                //     'email' => $user->email,
-                //     'phone_number' => $user->phone_number,
-                //     'gender' => $user->gender,
-                //     'status' => $user->status,
-                //     'uniform_status' => $user->uniform_status,
-                //     'profile_image' => $user->profile_image,
-                //     'license_number' => $user->license_number,
-                //     'marital_status' => $user->marital_status,
-                //     'dob' => $user->dob,
-                //     'residence_address' => $user->residence_address,
-                //     'parking_id' => $user->parking_id,
-                //     'created_at' => $user->created_at,
-                //     'updated_at' => $user->updated_at
-                // ],
+                'user' => [
+                    'id' => $user->id,
+                    'full_name' => $user->full_name,
+                    'email' => $user->email,
+                    'phone_number' => $user->phone_number,
+                    'gender' => $user->gender,
+                    'status' => $user->status,
+                    'uniform_status' => $user->uniform_status,
+                    'profile_image' => $user->profile_image,
+                    'license_number' => $user->license_number,
+                    'marital_status' => $user->marital_status,
+                    'dob' => $user->dob,
+                    'residence_address' => $user->residence_address,
+                    'parking_id' => $user->parking_id,
+                    'created_at' => $user->created_at,
+                    'updated_at' => $user->updated_at
+                ],
             ]);
         } catch (ValidationException $e) {
             DB::rollBack();
