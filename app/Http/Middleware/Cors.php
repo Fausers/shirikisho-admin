@@ -8,6 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Cors
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
 
     public function handle($request, Closure $next)
     {
@@ -15,7 +22,7 @@ class Cors
 
         $response->header('Access-Control-Allow-Origin', '*');
         $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With, Application');
+        $response->header('Access-Control-Allow-Headers', 'Content-Type, X-Auth-Token, Origin');
 
         return $response;
     }

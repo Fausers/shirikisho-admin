@@ -22,7 +22,7 @@ use Illuminate\Validation\ValidationException;
 |
 */
 
-Route::middleware('cors')->group(function () {
+// Route::middleware('cors')->group(function () {
     Route::post('/sanctum/token', [ApiController::class, 'store']);
     Route::middleware('auth:sanctum')->group(function () {
 
@@ -56,4 +56,4 @@ Route::middleware('cors')->group(function () {
         // Route::middleware('auth:sanctum')->post('/save-driver', [DriverController::class, 'driverSave']);
         Route::get('/drivers', [DriverController::class, 'getDrivers']);
     });
-});
+// });
