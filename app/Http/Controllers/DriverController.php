@@ -203,7 +203,7 @@ class DriverController extends Controller
     public function getDrivers()
     {
 
-        $drivers = DB::table('drivers')->get();
+        $drivers = DB::table('users')->get();
         return response()->json(['data' => $drivers, 'messages' => 'successfull fetched']);
     }
 }

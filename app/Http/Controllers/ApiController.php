@@ -190,12 +190,12 @@ class ApiController extends Controller
                 ]);
             } else {
                 // Redirect with error message if OTP is invalid
-                return redirect()->back()->with('error', 'Invalid OTP. Please enter a valid OTP.');
+                return response()->json(['status' => 400, 'message' => 'Invalid OTP. Please enter a valid OTP.']);
             }
         } catch (Exception $e) {
             // Handle exceptions
             DB::rollback();
-            return redirect()->back()->with('error', $e->getMessage());
+            return response()->json(['status' => 500, 'message' => 'Internal Server Error','error' => $e->getMessage()]);
         }
     }
 }

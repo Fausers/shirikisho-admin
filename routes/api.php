@@ -23,32 +23,36 @@ use Illuminate\Validation\ValidationException;
 */
 
 
-
-// get user and token
 Route::post('/sanctum/token', [ApiController::class, 'store']);
-Route::middleware('auth:sanctum')->post('/verify-otp-code', [ApiController::class, 'otpCode']);
+Route::middleware('auth:sanctum')->group(function () {
 
-// New API route to post driver data
-Route::middleware('auth:sanctum')->post('/save-driver', [DriverController::class, 'driverSave']);
-Route::middleware('auth:sanctum')->post('/verify/user', [ApiController::class, 'verifyUser']);
+    // get user and token
+
+    Route::post('/verify-otp-code', [ApiController::class, 'otpCode']);
+
+    // New API route to post driver data
+    Route::post('/verify/user', [ApiController::class, 'verifyUser']);
+    Route::post('/save-driver', [DriverController::class, 'driverSave']);
 
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('/user/revoke', function (Request $request) {
+        // return $request->user();
+        $user = $request->user();
+        $user->tokens()->delete();
+        return 'tokens are deleted';
+    });
+
+    // Login
+    // Route::middleware('auth:sanctum')->post('/login', [AuthController::class, 'login']);
+    Route::get('/logout', [AuthController::class, 'logoutt']);
+
+
+    // New API route to post driver data
+    // Route::middleware('auth:sanctum')->post('/save-driver', [DriverController::class, 'driverSave']);
+    Route::get('/drivers', [DriverController::class, 'getDrivers']);
 });
-
-Route::middleware('auth:sanctum')->get('/user/revoke', function (Request $request) {
-    // return $request->user();
-    $user = $request->user();
-    $user->tokens()->delete();
-    return 'tokens are deleted';
-});
-
-// Login
-// Route::middleware('auth:sanctum')->post('/login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->get('/logout', [AuthController::class, 'logoutt']);
-
-
-// New API route to post driver data
-// Route::middleware('auth:sanctum')->post('/save-driver', [DriverController::class, 'driverSave']);
-// Route::middleware('auth:sanctum')->get('/drivers', [DriverController::class, 'getDrivers']);
