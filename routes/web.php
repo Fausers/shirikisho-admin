@@ -71,6 +71,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/editDriver/{id}', [DriverController::class, 'editDriver']);
         Route::get('/viewDiver/{id}', [DriverController::class, 'viewDiver']);
         Route::get('/deleteDriver/{id}', [DriverController::class, 'deleteDriver']);
+
+        Route::post('/filter-all-drivers',[DashboardController::class,'getTotalDriversByCreatedAt']);
     });
 
     Route::prefix('parking')->group(function () {

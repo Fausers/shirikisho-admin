@@ -33,6 +33,13 @@ use Illuminate\Validation\ValidationException;
         // New API route to post driver data
         Route::post('/verify/user', [ApiController::class, 'verifyUser']);
         Route::post('/save-driver', [DriverController::class, 'driverSave']);
+        Route::post('/update-driver/{id}', [DriverController::class, 'updateDrive']);
+
+        // Location
+        Route::get('/region', [ApiController::class, 'getRegion']);
+        Route::post('/region/{id}/district', [ApiController::class, 'regionDistrict']);
+        Route::post('/district/{id}/ward', [ApiController::class, 'districtWard']);
+
 
 
 
@@ -54,6 +61,6 @@ use Illuminate\Validation\ValidationException;
 
         // New API route to post driver data
         // Route::middleware('auth:sanctum')->post('/save-driver', [DriverController::class, 'driverSave']);
-        Route::get('/drivers', [DriverController::class, 'getDrivers']);
+        // Route::get('/drivers', [DriverController::class, 'getDrivers']);
     });
 // });

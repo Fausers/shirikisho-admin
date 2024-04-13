@@ -9,7 +9,7 @@
 
                         <!-- statustic-card start -->
                         <div class="col-xl-3 col-md-6">
-                            <div class="card text-white"  style="background-color: #8ADAB2;">
+                            <div class="card text-white" style="background-color: #8ADAB2;">
                                 <div class="card-block">
                                     <div class="row align-items-center">
                                         <div class="col">
@@ -76,12 +76,82 @@
                                 <div class="card-header">
                                     <div class="card-header-left ">
                                         <h5>Monthly View</h5>
-                                        <span class="text-muted">For more details about usage, please refer <a href="https://www.amcharts.com/online-store/" target="_blank">amCharts</a> licences.</span>
+                                        <span class="text-muted">For .</span>
                                     </div>
+
+                                    <form id="formGraph" onsubmit="filterGraph(event)">
+                                        @csrf
+                                        <div class="row">
+
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="month_select">Month</label>
+                                                    <select class="form-control form-control-round" id="month_select" name="month">
+                                                        <option value="" disabled>Select Month</option>
+                                                        <?php
+
+                                                        use Illuminate\Support\Facades\Auth;
+
+                                                        $months = [
+                                                            1 => 'January',
+                                                            2 => 'February',
+                                                            3 => 'March',
+                                                            4 => 'April',
+                                                            5 => 'May',
+                                                            6 => 'June',
+                                                            7 => 'July',
+                                                            8 => 'August',
+                                                            9 => 'September',
+                                                            10 => 'October',
+                                                            11 => 'November',
+                                                            12 => 'December'
+                                                        ];
+                                                        $currentMonth = date('n');
+                                                        foreach ($months as $monthNumber => $monthName) {
+                                                            $selected = ($monthNumber == $currentMonth) ? 'selected' : '';
+                                                            echo '<option value="' . $monthNumber . '" ' . $selected . '>' . $monthName . '</option>';
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+
+                                                    <label for="year_select">Year</label>
+
+                                                    <select class="form-control form-control-round" id="year_select" name="year">
+                                                        <?php
+                                                        $currentYear = date('Y'); // Get the current year
+                                                        for ($year = $currentYear; $year >= $currentYear - 10; $year--) {
+                                                            $selected = ($year == $currentYear) ? 'selected' : '';
+                                                            echo '<option value="' . $year . '" ' . $selected . '>' . $year . '</option>';
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="mb-2"></div>
+                                                <div class="form-group">
+                                                <br>
+                                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="card-block-big">
-                                    <div id="monthly-graph" style="height:250px"></div>
+                                <div class="card-block-big" style="position: relative;">
+                                    <!-- Loader div centered using CSS flexbox -->
+                                    <div id="loader" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                        <h3>Loading...</h3>
+                                    </div>
+
+                                    <canvas id="monthly-mixed-chart" style="height:250px"></canvas>
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-12">
@@ -552,4 +622,155 @@
         </div>
     </div>
 </div>
+
+<?php
+$currentMonth = date('n');
+$currentYear = date('Y');
+?>
+<script>
+    var userss = <?= json_encode(Auth::user()) ?>;
+    if (userss.role == 1) {
+        document.addEventListener("DOMContentLoaded", function() {
+
+            document.getElementById('month_select').value = '<?php echo $currentMonth; ?>';
+            document.getElementById('year_select').value = '<?php echo $currentYear; ?>';
+
+
+            filterGraphOnLoad();
+            loadPieChart();
+
+        });
+    }
+    $(document).ready(function() {
+        getAllDrivers();
+    });
+
+
+
+    function filterGraphOnLoad() {
+        var event = new Event('click');
+        filterGraph(event);
+    }
+
+    function filterGraph(e) {
+        e.preventDefault();
+
+        showLoader();
+
+        // disableBtn("submitBtn", true);
+        var form = document.getElementById('formGraph');
+        var formData = new FormData(form);
+
+        jQuery.ajax({
+            type: "POST",
+            url: "/driver/filter-all-drivers/",
+            data: formData,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data) {
+                hideLoader();
+                if (data.status == 200) {
+                    toastr.success(data.message)
+                    loadChart(data.data);
+                    // clear_input()
+                } else {
+                    toastr.warning(data.message)
+                }
+
+            },
+            error: function(xhr, status, error) {
+                // Hide loader in case of error
+                hideLoader();
+
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    // Function to show loader
+    function showLoader() {
+        document.getElementById('loader').style.display = 'block';
+    }
+
+    // Function to hide loader
+    function hideLoader() {
+        document.getElementById('loader').style.display = 'none';
+    }
+
+
+
+    function loadChart(data) {
+        var rowData = data;
+
+        // Extract data for line chart
+        var lineLabels = rowData.map(function(item) {
+            return item.created_date;
+        });
+        var lineDataPoints = rowData.map(function(item) {
+            return item.total_users;
+        });
+
+        // Extract data for bar chart
+        var barDataPoints = rowData.map(function(item) {
+            return item.total_users;
+        });
+
+        // Get canvas element for mixed chart
+        var mixedCtx = document.getElementById('monthly-mixed-chart').getContext('2d');
+
+        var existingChart = window.myChart;
+
+        // console.log('existingChart', existingChart);
+
+        // Destroy the existing chart instance
+        if (existingChart) {
+            existingChart.destroy();
+        }
+
+        // Create mixed chart
+        window.myChart = new Chart(mixedCtx, {
+            type: 'bar',
+            data: {
+                labels: lineLabels,
+                datasets: [{
+                    label: 'Total Drivers (Line)',
+                    data: lineDataPoints,
+                    type: 'line',
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1
+                }, {
+                    label: 'Total Drivers (Bar)',
+                    data: barDataPoints,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+    };
+</script>
+
+
+
+
+
+
 @endsection

@@ -90,7 +90,7 @@
                                             </div>
                                             <div class="mb-2"></div>
                                             <div class="col-md-12">
-                                                <h2 class="text-center txt-primary" style="font-weight: normal;">OTP Verification code</h2>
+                                                <h2 class="text-center txt-primary" style="font-weight: normal;">OTP</h2>
                                             </div>
                                             <div class="mb-4"></div>
                                         </div>

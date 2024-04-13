@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,4 +48,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getTotalDriversByCreatedAt($month, $year)
+    {
+        // Get the total number of users grouped by their creation date
+        $userCounts = User::query()
+            ->whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->where('role', 2) // Assuming you want to filter only drivers (role = 2)
+            ->selectRaw('DATE(created_at) as created_date, COUNT(*) as total_users')
+            ->groupBy('created_date')
+            ->orderBy('created_date', 'asc')
+            ->get();
+    
+        return $userCounts;
+    }
+    
 }

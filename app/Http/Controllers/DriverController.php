@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Driver;
 use App\Models\NextSMSModel;
+use App\Models\UserOTP;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +74,11 @@ class DriverController extends Controller
                 }
 
                 // Generate a random numeric string of 6 digits
-                $password = str_pad(rand(0, pow(10, 6) - 1), 6, '0', STR_PAD_LEFT);
+                // $password = str_pad(rand(0, pow(10, 6) - 1), 6, '0', STR_PAD_LEFT);
+                do {
+                    $otpCode = mt_rand(100000, 999999);
+                } while (UserOTP::where('otp_code', $otpCode)->exists());
+
 
                 $data = [
                     'full_name' => $full_name,
@@ -84,7 +89,7 @@ class DriverController extends Controller
                     'residence_address' => $residence_address,
                     'license_number' => $license_number,
                     'profile_image' => $request->hasFile('profile_image') ? $request->file('profile_image')->store('drivers', 'public') : null,
-                    'password' => Hash::make($password),
+                    // 'password' => Hash::make($password),
                     'created_by' => $user_id,
                     'updated_by' => $user_id,
                     'created_at' => now(),
@@ -93,22 +98,36 @@ class DriverController extends Controller
 
                 $insertedDriverId = DB::table('users')->insertGetId($data);
 
-                $dataa = [
-                    'vehicle_type' => $vehicle_type,
-                    'vehicle_number' => $vehicle_number,
-                    'ownership' => $ownership,
-                    'vehicle_owner_name' => $vehicle_owner_name,
-                    'vehicle_owner_phone' => $vehicle_owner_phone,
-                    'user_id' => $insertedDriverId,
-                    'created_by' => $user_id,
-                    'updated_by' => $user_id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-                DB::table('user_vehicle')->insert($dataa);
+                // for now not used
+
+                // $dataa = [
+                //     'vehicle_type' => $vehicle_type,
+                //     'vehicle_number' => $vehicle_number,
+                //     'ownership' => $ownership,
+                //     'vehicle_owner_name' => $vehicle_owner_name,
+                //     'vehicle_owner_phone' => $vehicle_owner_phone,
+                //     'user_id' => $insertedDriverId,
+                //     'created_by' => $user_id,
+                //     'updated_by' => $user_id,
+                //     'created_at' => now(),
+                //     'updated_at' => now(),
+                // ];
+                // DB::table('user_vehicle')->insert($dataa);
 
                 // Message sent successfull
-                $messages = 'Hongera kwa kusajiliwa kwenye Mfumo wa Shirikisho, Password yako ni ' . $password;
+                // $messages = 'Hongera kwa kusajiliwa kwenye Mfumo wa Shirikisho, Password yako ni ' . $password;
+                // $reference = 'Humtech';
+                // $this->sendSms($phone_number, $messages, $reference);
+
+                UserOTP::create([
+                    'otp_code' => $otpCode,
+                    'user_id' => $user_id,
+                    'created_user_id' => $insertedDriverId,
+                    'created_by' => $user_id,
+                    'updated_by' => $user_id,
+                ]);
+
+                $messages = $otpCode . ' Ni Namba yako ya uhakiki';
                 $reference = 'Humtech';
                 $this->sendSms($phone_number, $messages, $reference);
 
@@ -150,6 +169,82 @@ class DriverController extends Controller
             return response()->json(['status' => 500, 'message' => $e->getMessage()]);
         }
     }
+
+    public function updateDrive(Request $request, $id)
+    {
+        $request->validate([
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // Update user details
+            $user = DB::table('users')->where('id', $id)->first();
+
+            $full_name = $request->input('full_name') ?? $user->full_name;
+            $phone_number = $request->input('phone_number') ?? $user->phone_number;
+            $gender = $request->input('gender') ?? $user->gender;
+            $dob = $request->input('dob') ?? $user->dob;
+            $marital_status = $request->input('marital_status') ?? $user->marital_status;
+            $residence_address = $request->input('residence_address') ?? $user->residence_address;
+            $license_number = $request->input('license_number') ?? $user->license_number;
+            $profile_image = $request->hasFile('profile_image') ? $request->file('profile_image')->store('drivers', 'public') : ($user->profile_image ?: null);
+
+            $password = str_pad(rand(0, pow(10, 6) - 1), 6, '0', STR_PAD_LEFT);
+
+            $user_id = Auth::user()->id;
+
+            $userData = [
+                'full_name' => $full_name,
+                'phone_number' => $phone_number,
+                'gender' => $gender,
+                'dob' => $dob,
+                'marital_status' => $marital_status,
+                'residence_address' => $residence_address,
+                'license_number' => $license_number,
+                'password' => Hash::make($password),
+                'updated_by' => $user_id,
+                'updated_at' => now(),
+                'profile_image' => $profile_image,
+            ];
+
+            $userCondition = [
+                'id' => $id,
+                'archive' => 0
+            ];
+
+            DB::table('users')->where($userCondition)->update($userData);
+
+            // Update or insert vehicle details
+            $vehicleData = [
+                'vehicle_type' => $request->input('vehicle_type'),
+                'vehicle_number' => $request->input('vehicle_number'),
+                'ownership' => $request->input('ownership'),
+                'vehicle_owner_name' => $request->input('vehicle_owner_name'),
+                'vehicle_owner_phone' => $request->input('vehicle_owner_phone'),
+                'user_id' => $id,
+                'created_by' => $user_id,
+                'updated_by' => $user_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+            DB::table('user_vehicle')->insert($vehicleData);
+
+            DB::commit();
+
+            $messages = 'Hongera kwa kusajiliwa kwenye Mfumo wa Shirikisho, Password yako ni ' . $password;
+            $reference = 'Humtech';
+            $this->sendSms($phone_number, $messages, $reference);
+
+            return response()->json(['status' => 200, 'message' => 'Driver updated successfully']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['status' => 500, 'message' => $e->getMessage()]);
+        }
+    }
+
 
     public function sendSms($recipientNumber, $message, $reference)
     {

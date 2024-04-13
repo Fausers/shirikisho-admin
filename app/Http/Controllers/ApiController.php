@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\NextSMSModel;
+use App\Models\ServiceModel;
 use App\Models\User;
 use App\Models\UserOTP;
-use Dotenv\Exception\ValidationException;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
+
+    private $ServicesModel;
+
+    function __construct()
+    {
+        $user = Auth::user();
+        $ServicesModel = new ServiceModel();
+        $this->ServicesModel = $ServicesModel;
+    }
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -36,18 +45,19 @@ class ApiController extends Controller
                 }
             }
 
+
+
             // Check if OTP already exists for the user
             $existingOTP = UserOTP::where('user_id', $user->id)->first();
-            if ($existingOTP) {
+            if (empty($existingOTP)) {
 
-                // Generate new OTP code
                 do {
                     $otpCode = mt_rand(100000, 999999);
                 } while (UserOTP::where('otp_code', $otpCode)->exists());
 
 
                 // Send OTP via SMS
-                $smsSent = (new NextSMSModel())->sendSms($user->phone_number, "Your OTP is: $otpCode", 'OTP');
+                $smsSent = (new NextSMSModel())->sendSms($user->phone_number, $otpCode . " Ni Namba yako ya uhakiki", 'Humtech');
 
                 if ($smsSent) {
                     // Store OTP code in the database
@@ -62,7 +72,37 @@ class ApiController extends Controller
                     // return response()->json();
                 } else {
                     DB::rollBack();
-                    // return response()->json(['loginError' => 'Failed to send OTP']);
+                    return response()->json(['error' => 'Failed to send OTP']);
+                }
+            } else {
+                $expiredOTP = UserOTP::where('user_id', $user->id)
+                    ->where('created_at', '<', now()->subMinute())
+                    ->delete();
+
+                if ($expiredOTP) {
+                    do {
+                        $otpCode = mt_rand(100000, 999999);
+                    } while (UserOTP::where('otp_code', $otpCode)->exists());
+
+
+                    // Send OTP via SMS
+                    $smsSent = (new NextSMSModel())->sendSms($user->phone_number, $otpCode . " Ni Namba yako ya uhakiki", 'Humtech');
+
+                    if ($smsSent) {
+                        // Store OTP code in the database
+                        UserOTP::create([
+                            'otp_code' => $otpCode,
+                            'user_id' => $user->id,
+                            'created_by' => $user->id,
+                            'updated_by' => $user->id,
+                        ]);
+
+                        DB::commit();
+                        // return response()->json();
+                    } else {
+                        DB::rollBack();
+                        return response()->json(['error' => 'Failed to send OTP']);
+                    }
                 }
             }
 
@@ -72,6 +112,7 @@ class ApiController extends Controller
                 'status' => 200,
                 'message' => 'success',
                 'token' => $user->createToken($request->device_name)->plainTextToken,
+                'code' => $otpCode,
                 'user' => [
                     'id' => $user->id,
                     'full_name' => $user->full_name,
@@ -90,7 +131,7 @@ class ApiController extends Controller
                     'updated_at' => $user->updated_at
                 ],
             ]);
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
                 'status' => 422,
@@ -159,9 +200,23 @@ class ApiController extends Controller
             $user = Auth::user();
             $otpCode = $request->input('otp_code');
 
+            // Delete existing OTP if its created_at time is more than one minute ago
+            $existingOTP = UserOTP::where(['user_id' => $user->id, 'otp_code' => $otpCode])
+                ->where('created_at', '<', now()->subMinute())
+                ->delete();
+
+            // Check if the user needs to log in to get a new OTP
+            if ($existingOTP) {
+                DB::rollBack();
+                return response()->json(['status' => 200, 'message' => 'OTP has already expired. Please log in to get a new OTP.']);
+            }
+
+
             $userOTP = UserOTP::where('user_id', $user->id)
                 ->where('otp_code', $otpCode)
                 ->first();
+
+            $createdUser = User::where('id', $userOTP->created_user_id)->first();
 
             if ($userOTP) {
 
@@ -169,33 +224,63 @@ class ApiController extends Controller
                 return response()->json([
                     'status' => 200,
                     'message' => 'success',
-                    // 'token' => $user->createToken($request->device_name)->plainTextToken,
+                    // Created user
                     'user' => [
-                        'id' => $user->id,
-                        'full_name' => $user->full_name,
-                        'email' => $user->email,
-                        'phone_number' => $user->phone_number,
-                        'gender' => $user->gender,
-                        'status' => $user->status,
-                        'uniform_status' => $user->uniform_status,
-                        'profile_image' => $user->profile_image,
-                        'license_number' => $user->license_number,
-                        'marital_status' => $user->marital_status,
-                        'dob' => $user->dob,
-                        'residence_address' => $user->residence_address,
-                        'parking_id' => $user->parking_id,
-                        'created_at' => $user->created_at,
-                        'updated_at' => $user->updated_at
+                        'id' => $createdUser->id,
+                        'full_name' => $createdUser->full_name,
+                        'phone_number' => $createdUser->phone_number,
+                        'gender' => $createdUser->gender,
+                        'status' => $createdUser->status,
+                        'uniform_status' => $createdUser->uniform_status,
+                        'profile_image' => $createdUser->profile_image,
+                        'license_number' => $createdUser->license_number,
+                        'marital_status' => $createdUser->marital_status,
+                        'dob' => $createdUser->dob,
+                        'residence_address' => $createdUser->residence_address,
+                        'parking_id' => $createdUser->parking_id,
                     ],
                 ]);
             } else {
                 // Redirect with error message if OTP is invalid
-                return response()->json(['status' => 400, 'message' => 'Invalid OTP. Please enter a valid OTP.']);
+                return response()->json(['status' => 400, 'message' => 'Please enter a valid OTP.', 'error' => 'error',]);
             }
         } catch (Exception $e) {
             // Handle exceptions
             DB::rollback();
-            return response()->json(['status' => 500, 'message' => 'Internal Server Error','error' => $e->getMessage()]);
+            return response()->json(['status' => 500, 'message' => 'Internal Server Error', 'error' => $e->getMessage()]);
+        }
+    }
+
+    public function getRegion()
+    {
+
+        try {
+
+            $data = $this->ServicesModel->getRegion();
+
+            return response()->json(['status' => 200, 'message' => 'Regions fetched successfull', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => $e->getMessage()]);
+        }
+    }
+    public function regionDistrict($id)
+    {
+        try {
+            $data = $this->ServicesModel->getRegionDistrict($id);
+
+            return response()->json(['status' => 200, 'message' => 'Region Districts fetched successfull', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => $e->getMessage()]);
+        }
+    }
+    public function districtWard($id)
+    {
+        try {
+            $data = $this->ServicesModel->getDistrictWard($id);
+
+            return response()->json(['status' => 200, 'message' => 'District Wards fetched successfull', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => $e->getMessage()]);
         }
     }
 }
