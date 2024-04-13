@@ -216,30 +216,39 @@ class ApiController extends Controller
                 ->where('otp_code', $otpCode)
                 ->first();
 
-            $createdUser = User::where('id', $userOTP->created_user_id)->first();
-
             if ($userOTP) {
 
-                DB::commit();
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'success',
-                    // Created user
-                    'user' => [
-                        'id' => $createdUser->id,
-                        'full_name' => $createdUser->full_name,
-                        'phone_number' => $createdUser->phone_number,
-                        'gender' => $createdUser->gender,
-                        'status' => $createdUser->status,
-                        'uniform_status' => $createdUser->uniform_status,
-                        'profile_image' => $createdUser->profile_image,
-                        'license_number' => $createdUser->license_number,
-                        'marital_status' => $createdUser->marital_status,
-                        'dob' => $createdUser->dob,
-                        'residence_address' => $createdUser->residence_address,
-                        'parking_id' => $createdUser->parking_id,
-                    ],
-                ]);
+                $createdUser = User::where('id', $userOTP->created_user_id)->first();
+
+                if ($createdUser) {
+                    DB::commit();
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'success',
+                        // Created user
+                        'user' => [
+                            'id' => $createdUser->id,
+                            'full_name' => $createdUser->full_name,
+                            'phone_number' => $createdUser->phone_number,
+                            'gender' => $createdUser->gender,
+                            'status' => $createdUser->status,
+                            'uniform_status' => $createdUser->uniform_status,
+                            'profile_image' => $createdUser->profile_image,
+                            'license_number' => $createdUser->license_number,
+                            'marital_status' => $createdUser->marital_status,
+                            'dob' => $createdUser->dob,
+                            'residence_address' => $createdUser->residence_address,
+                            'parking_id' => $createdUser->parking_id,
+                        ],
+                    ]);
+                } else {
+                    // Handle case where the created user is not found
+                    return response()->json([
+                        'status' => 400,
+                        'message' => 'The user associated with the OTP code was not found.',
+                        'error' => 'User not found',
+                    ]);
+                }
             } else {
                 // Redirect with error message if OTP is invalid
                 return response()->json(['status' => 400, 'message' => 'Please enter a valid OTP.', 'error' => 'error',]);

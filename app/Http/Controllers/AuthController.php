@@ -27,7 +27,7 @@ class AuthController extends Controller
 
                 // Check for OTP within the last minute and delete if found
                 $userOTP = UserOTP::where('user_id', $user->id)
-                    ->whereRaw('created_at > NOW() - INTERVAL 1 MINUTE')
+                    ->where('created_at', '<', now()->subMinute())
                     ->first();
 
                 // dd($userOTP);
@@ -75,7 +75,6 @@ class AuthController extends Controller
         }
     }
 
-
     public function otpsubmit(Request $request)
     {
         // Begin a database transaction
@@ -94,15 +93,18 @@ class AuthController extends Controller
                 ->first();
 
             if ($userOTP) {
-                $userOTPP = UserOTP::where('user_id', $user->id)
-                    ->whereRaw('created_at > NOW() - INTERVAL 1 MINUTE')
+                // Check if the OTP code has expired
+                $expiredOTP = UserOTP::where('user_id', $user->id)
+                    ->where('created_at', '<', now()->subMinute())
                     ->first();
 
-                if ($userOTPP) {
-                    $userOTPP->delete();
+                if ($expiredOTP) {
+                    // If OTP has expired, delete it
+                    $expiredOTP->delete();
                     DB::commit();
                     return redirect('/');
                 } else {
+                    // If OTP is valid and not expired, commit transaction and redirect to dashboard
                     DB::commit();
                     return redirect('dashboard');
                 }
@@ -116,6 +118,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 
 
 
