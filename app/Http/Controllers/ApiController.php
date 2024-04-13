@@ -201,15 +201,15 @@ class ApiController extends Controller
             $otpCode = $request->input('otp_code');
 
             // Delete existing OTP if its created_at time is more than one minute ago
-            $existingOTP = UserOTP::where(['user_id' => $user->id, 'otp_code' => $otpCode])
-                ->where('created_at', '<', now()->subMinute())
-                ->delete();
+            // $existingOTP = UserOTP::where(['user_id' => $user->id, 'otp_code' => $otpCode])
+            //     ->where('created_at', '<', now()->subMinute())
+            //     ->delete();
 
-            // Check if the user needs to log in to get a new OTP
-            if ($existingOTP) {
-                DB::rollBack();
-                return response()->json(['status' => 200, 'message' => 'OTP has already expired. Please log in to get a new OTP.']);
-            }
+            // // Check if the user needs to log in to get a new OTP
+            // if ($existingOTP) {
+            //     DB::rollBack();
+            //     return response()->json(['status' => 200, 'message' => 'OTP has already expired. Please log in to get a new OTP.']);
+            // }
 
 
             $userOTP = UserOTP::where('user_id', $user->id)

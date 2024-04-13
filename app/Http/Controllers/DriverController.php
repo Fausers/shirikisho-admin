@@ -98,26 +98,7 @@ class DriverController extends Controller
 
                 $insertedDriverId = DB::table('users')->insertGetId($data);
 
-                // for now not used
-
-                // $dataa = [
-                //     'vehicle_type' => $vehicle_type,
-                //     'vehicle_number' => $vehicle_number,
-                //     'ownership' => $ownership,
-                //     'vehicle_owner_name' => $vehicle_owner_name,
-                //     'vehicle_owner_phone' => $vehicle_owner_phone,
-                //     'user_id' => $insertedDriverId,
-                //     'created_by' => $user_id,
-                //     'updated_by' => $user_id,
-                //     'created_at' => now(),
-                //     'updated_at' => now(),
-                // ];
-                // DB::table('user_vehicle')->insert($dataa);
-
-                // Message sent successfull
-                // $messages = 'Hongera kwa kusajiliwa kwenye Mfumo wa Shirikisho, Password yako ni ' . $password;
-                // $reference = 'Humtech';
-                // $this->sendSms($phone_number, $messages, $reference);
+             
 
                 UserOTP::create([
                     'otp_code' => $otpCode,
@@ -132,6 +113,7 @@ class DriverController extends Controller
                 $this->sendSms($phone_number, $messages, $reference);
 
                 $message = 'Driver saved successfully';
+                
             } else {
                 ## Update existing driver
 
