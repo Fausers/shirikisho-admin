@@ -41,7 +41,10 @@ use Illuminate\Validation\ValidationException;
         Route::get('/district/{id}/ward', [ApiController::class, 'districtWard']);
 
         // Parking
-        Route::post('/get-parking/{regionId}/{districtId}/{wardId}',[ApiController::class,'getParking']);
+        Route::get('/get-parking/{wardId}',[ApiController::class,'getParking']);
+
+        // Associations
+        Route::get('/get-associations/{districtId}',[ApiController::class,'getAssociations']);
 
 
 
@@ -64,6 +67,6 @@ use Illuminate\Validation\ValidationException;
 
         // New API route to post driver data
         // Route::middleware('auth:sanctum')->post('/save-driver', [DriverController::class, 'driverSave']);
-        // Route::get('/drivers', [DriverController::class, 'getDrivers']);
+        Route::get('/drivers', [DriverController::class, 'getDrivers']);
     });
 // });

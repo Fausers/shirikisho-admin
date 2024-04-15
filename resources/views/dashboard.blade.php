@@ -83,7 +83,7 @@
                                         @csrf
                                         <div class="row">
 
-                                            <div class="col-md-5">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="month_select">Month</label>
                                                     <select class="form-control form-control-round" id="month_select" name="month">
@@ -113,11 +113,10 @@
                                                         }
                                                         ?>
                                                     </select>
-                                                    </select>
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
 
                                                     <label for="year_select">Year</label>
@@ -133,11 +132,41 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="region">Region</label>
+                                                    <select name="region_id" id="region_id" class="form-control form-control-round" onchange="getRegionDistrict(this.value)">
+                                                        <option value="">Select Region</option>
+                                                        @foreach($region as $reg)
+                                                        <option value="{{$reg->id}}">{{$reg->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="district">District</label>
+                                                    <select name="district_id" id="district_id" class="form-control form-control-round" onchange="getDistrictWard(this.value)">
+                                                        <option value="">Select District</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="ward">Ward</label>
+                                                    <select class="form-control form-control-round" id="ward_id" name="ward_id">
+                                                        <option>Select Ward</option>
+                                                        <!-- Add options for wards -->
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-2">
                                                 <div class="mb-2"></div>
                                                 <div class="form-group">
                                                     <br>
-                                                    <button type="submit" class="btn" style="background-color: #8fc9ae; color: white">Filter</button>
+                                                    <button type="submit" class="btn btn-round" style="background-color: #8fc9ae; color: white">Filter</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -156,38 +185,33 @@
 
                         </div>
                         <div class="col-xl-2 col-md-12">
-                            <div class="card feed-card">
+                            <div class="feed-card card">
                                 <div class="card-block">
-                                    <div class="row per-task-block text-center">
+                                    <div class="row per-task-block text-center card" style="height: 300px;">
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <div style="padding-bottom: 60px;"></div>
-                                                    <h5 style="padding-right: 80px;">Marital Status</h5>
+                                                    <h5>Marital Status</h5>
                                                 </div>
-                                                <div class="row per-task-block text-center">
-                                                    <div class="col-6">
-                                                        <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-secondary" style="background-color: #83afa6; color: white;"></div>
-                                                        <h6 class="text-muted">Married Driver</h6>
-                                                        <p class="text-muted">642</p>
-                                                    </div>
+                                                <div>
+                                                    <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-secondary" style="background-color: #83afa6; color: white;"></div>
+                                                    <h6 class="text-muted">Married Driver</h6>
+                                                    <p class="text-muted">642</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row per-task-block text-center">
                                         <div class="col-12">
-                                            <div class="card">
+                                            <div class="card" style="height: 300px;">
                                                 <div class="card-header">
-                                                    <h5 style="padding-right: 80px;">Driving License</h5>
+                                                    <h5>Driving License</h5>
                                                     <!-- Member verification -->
                                                 </div>
-                                                <div class="row per-task-block text-center">
-                                                    <div class="col-6">
-                                                        <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-warning"></div>
-                                                        <h6 class="text-muted">Licensed Driver</h6>
-                                                        <p class="text-muted">642</p>
-                                                    </div>
+                                                <div>
+                                                    <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-warning"></div>
+                                                    <h6 class="text-muted">Licensed Driver</h6>
+                                                    <p class="text-muted">642</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,13 +220,13 @@
                             </div>
                         </div>
                         <div class="col-xl-2 col-md-12">
-                            <div class="card feed-card">
+                            <div class="feed-card card">
                                 <div class="card-block">
-                                    <div class="row per-task-block text-center">
+                                    <div class="row per-task-block text-center  card" style="height: 300px;">
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5 style="padding-left: 40px;">Gender</h5>
+                                                    <h5>Gender</h5>
                                                 </div>
                                                 <div class="card-block">
                                                     <canvas id="genderChart"></canvas>
@@ -212,9 +236,9 @@
                                     </div>
                                     <div class="row per-task-block text-center">
                                         <div class="col-12">
-                                            <div class="card">
+                                            <div class="card" style="height: 300px;">
                                                 <div class="card-header">
-                                                    <h5 style="padding-left: 50px;">Insuarance</h5>
+                                                    <h5>Insuarance</h5>
                                                     <!-- Member verification -->
                                                 </div>
                                                 <div class="card-block">
@@ -255,18 +279,67 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Candlestick chart</h5>
-                                    <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-
-                                </div>
+                        <div class="col-xl-2 col-md-12">
+                            <div class="card feed-card">
                                 <div class="card-block">
-                                    <div id="chart_Candlestick" style="width: 100%; height: 300px;"></div>
+                                    <div class="row per-task-block text-center card" style="height: 230px;">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Loans</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <canvas id="loansChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row per-task-block text-center card" style="height: 230px;">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Collections</h5>
+                                                    <!-- Member verification -->
+                                                </div>
+                                                <div class="card-block">
+                                                    <canvas id="coollectionChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="col-xl-2 col-md-12">
+                            <div class="card feed-card">
+                                <div class="card-block">
+                                    <div class="row per-task-block text-center card" style="height: 230px;">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Defaults</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <canvas id="defaultChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row per-task-block text-center card" style="height: 230px;">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Refunds</h5>
+                                                    <!-- Member verification -->
+                                                </div>
+                                                <div class="card-block">
+                                                    <canvas id="refundChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- income end -->
 
@@ -297,7 +370,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
 
@@ -305,28 +378,28 @@
                                                     <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Juma Hassan Mushi</td>
                                                     <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Juma Hassan Mushi</td>
                                                     <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Juma Hassan Mushi</td>
                                                     <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Juma Hassan Mushi</td>
@@ -369,7 +442,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
 
@@ -377,28 +450,28 @@
                                                     <td>420</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Asha Mussa Said</td>
                                                     <td>620</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Asha Mussa Said</td>
                                                     <td>790</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Asha Mussa Said</td>
                                                     <td>250</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="height: 100px; width: 30px;">
+                                                    <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
                                                     <td>Asha Mussa Said</td>
@@ -416,9 +489,9 @@
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-12">
-                            <div class="card table-card">
+                            <div class="card table-card" style="height: 780px;">
                                 <div class="card-header">
-                                    <h5>(10) Latest Transactions</h5>
+                                    <h5>(13) Latest Transactions</h5>
                                     <!-- <div class="card-header-right">
                                         <ul class="list-unstyled card-option">
                                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -491,6 +564,21 @@
                                                     <td>TZS 129000.00</td>
                                                 </tr>
                                                 <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Maegesho</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Maegesho</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Maegesho</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
 
                                             </tbody>
                                         </table>
@@ -538,9 +626,13 @@ $currentYear = date('Y');
     $(document).ready(function() {
         polarGraph();
         bubbleChart();
-        candleChart();
         genderChart();
         verificationGraph();
+
+        loansChart();
+        coollectionChart();
+        defaultChart();
+        refundChart();
     });
 
 
@@ -583,6 +675,49 @@ $currentYear = date('Y');
                 hideLoader();
 
                 console.error('Error:', error);
+            }
+        });
+    }
+
+
+    function getRegionDistrict(id) {
+
+        $("#district_id").html("")
+        jQuery.ajax({
+            type: "GET",
+            url: "/location/getRegionDistrict/" + id,
+            dataType: 'json',
+            success: function(data) {
+                var div = "";
+                $.each(data, function(index, row) {
+
+                    div += "<option value='" + row.id + "'>" + row.name + "</option>";
+                })
+
+                $("#district_id").html("<option value=''>Select District</option>")
+                $("#district_id").append(div)
+                $("#district_id").select2()
+            }
+        });
+    }
+
+    function getDistrictWard(id) {
+
+        $("#ward_id").html("")
+        jQuery.ajax({
+            type: "GET",
+            url: "/location/getDistrictWard/" + id,
+            dataType: 'json',
+            success: function(data) {
+                var div = "";
+                $.each(data, function(index, row) {
+
+                    div += "<option value='" + row.id + "'>" + row.name + "</option>";
+                })
+
+                $("#ward_id").html("<option value=''>Select Ward</option>")
+                $("#ward_id").append(div)
+                $("#ward_id").select2()
             }
         });
     }
@@ -770,52 +905,7 @@ $currentYear = date('Y');
         });
     }
 
-    function candleChart() {
-        // Sample data for Candlestick chart
-        var series = [{
-            data: [{
-                    x: new Date('2024-04-05'),
-                    y: [40, 90, 30, 80]
-                },
-                {
-                    x: new Date('2024-04-06'),
-                    y: [50, 95, 35, 85]
-                },
-                {
-                    x: new Date('2024-04-07'),
-                    y: [30, 70, 20, 60]
-                },
-                {
-                    x: new Date('2024-04-08'),
-                    y: [35, 85, 25, 75]
-                },
-                {
-                    x: new Date('2024-04-09'),
-                    y: [30, 80, 25, 70]
-                }
-            ]
-        }];
 
-        // Initialize Candlestick chart
-        var options = {
-            chart: {
-                type: 'candlestick',
-                height: 300,
-            },
-            series: series,
-            xaxis: {
-                type: 'datetime',
-            },
-            yaxis: {
-                tooltip: {
-                    enabled: true
-                }
-            }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart_Candlestick"), options);
-        chart.render();
-    }
 
     function genderChart() {
         // Sample data for gender distribution
@@ -872,6 +962,134 @@ $currentYear = date('Y');
         var ctx = document.getElementById('pieChart').getContext('2d');
         var pieChart = new Chart(ctx, {
             type: 'pie',
+            data: data,
+            options: options
+        });
+    }
+
+    function loansChart() {
+        // Sample data for gender distribution
+        var data = {
+            labels: ['loans', 'loan'],
+            datasets: [{
+                data: [45, 55], // Sample percentage distribution
+                backgroundColor: [
+                    '#8fc9ae', // Male
+                    '#d9dad7' // Female
+                ],
+
+                borderWidth: 0
+            }]
+        };
+
+        // Options for the gender chart
+        var options = {
+            legend: {
+                display: false // Hide legend
+            },
+            responsive: true
+        };
+
+        // Create the gender chart
+        var ctx = document.getElementById('loansChart').getContext('2d');
+        var genderChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+    }
+
+    function coollectionChart() {
+        // Sample data for gender distribution
+        var data = {
+            labels: ['collect', 'collectss'],
+            datasets: [{
+                data: [45, 55], // Sample percentage distribution
+                backgroundColor: [
+                    '#f0d587', // Male
+                    '#d9dad7' // Female
+                ],
+
+                borderWidth: 0
+            }]
+        };
+
+        // Options for the gender chart
+        var options = {
+            legend: {
+                display: false // Hide legend
+            },
+            responsive: true
+        };
+
+        // Create the gender chart
+        var ctx = document.getElementById('coollectionChart').getContext('2d');
+        var genderChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+    }
+
+    function defaultChart() {
+        // Sample data for gender distribution
+        var data = {
+            labels: ['defalut', 'defaultss'],
+            datasets: [{
+                data: [45, 55], // Sample percentage distribution
+                backgroundColor: [
+                    '#0b88a8', // Male
+                    '#d9dad7' // Female
+                ],
+
+                borderWidth: 0
+            }]
+        };
+
+        // Options for the gender chart
+        var options = {
+            legend: {
+                display: false // Hide legend
+            },
+            responsive: true
+        };
+
+        // Create the gender chart
+        var ctx = document.getElementById('defaultChart').getContext('2d');
+        var genderChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+    }
+
+    function refundChart() {
+        // Sample data for gender distribution
+        var data = {
+            labels: ['funds', 'Money'],
+            datasets: [{
+                data: [45, 55], // Sample percentage distribution
+                backgroundColor: [
+                    '#678c40', // Male
+                    '#d9dad7' // Female
+                ],
+
+                borderWidth: 0
+            }]
+        };
+
+        // Options for the gender chart
+        var options = {
+            legend: {
+                display: false // Hide legend
+            },
+            responsive: true
+        };
+
+        // Create the gender chart
+        var ctx = document.getElementById('refundChart').getContext('2d');
+        var genderChart = new Chart(ctx, {
+            type: 'doughnut',
             data: data,
             options: options
         });

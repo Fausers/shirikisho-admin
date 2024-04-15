@@ -73,7 +73,7 @@
                 </a>
             </li>
             <li class="#">
-                <a href="javascript:void(0)" style="padding-left: 30px;">
+                <a href="/associations/associations" style="padding-left: 30px;">
                     <span class="pcoded-micon"><i class="fa fa-users" style="color: #333;"></i></span>
                     <span class="pcoded-mtext" style="color: #333;font-weight: normal;">Associations</span>
                 </a>

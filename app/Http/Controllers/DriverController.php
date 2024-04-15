@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 class DriverController extends Controller
 {
@@ -154,9 +156,23 @@ class DriverController extends Controller
 
     public function updateDrive(Request $request, $id)
     {
-        $request->validate([
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        $validator = Validator::make($request->all(), [
+            // 'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'gender' => 'required',
+            // 'dob' => 'required',
+            // 'marital_status' => 'required',
+            // 'residence_address' => 'required',
+            'license_number' => 'required',
+            'vehicle_type' => 'required',
+            'vehicle_number' => 'required',
+            // 'ownership' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            DB::rollBack();
+            return response()->json(['status' => 400, 'message' => 'Validation failed', 'errors' => $validator->errors()], 400);
+        }
+        
 
         try {
             DB::beginTransaction();

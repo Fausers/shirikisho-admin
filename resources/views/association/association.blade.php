@@ -13,8 +13,8 @@
                                     <div class="col-lg-8">
                                         <div class="page-header-title">
                                             <div class="d-inline">
-                                                <h4>Parking areas</h4>
-                                                <span>View and manage all parking areas</span>
+                                                <h4>Associations</h4>
+                                                <span>View and manage all Associations</span>
 
                                                 <!-- <ul class="breadcrumb-title">
                                                 <li class="breadcrumb-item">
@@ -28,7 +28,7 @@
                                     <div class="col-lg-4">
                                         <div class="page-header-breadcrumb">
                                             <a href="#largeModal" data-toggle="modal" data-target="#large-Modal" class="text-end" style="float:right;" onclick="clear_input()">
-                                                <button class="btn btn-round" style="background-color: #8fc9ae; color: white">Adding Parking Area <i class="fa fa-plus"></i></button>
+                                                <button class="btn btn-round"  style="background-color: #8fc9ae; color: white">Add Associations <i class="fa fa-plus"></i></button>
                                             </a> <br>
                                         </div>
                                     </div>
@@ -64,21 +64,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <label for="Region">Wards</label>
-                                                <select name="select" class="form-control form-control-round">
-                                                    <option value="">Select</option>
-                                                    <option value="opt2">Type 2</option>
-                                                    <option value="opt3">Type 3</option>
-                                                    <option value="opt4">Type 4</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="col-md-4"></div>
                                         <div class="col-md-2 text-right">
                                             <!-- <button class="btn btn-info btn-round btn-mini">Clear Filter</button> -->
-                                            <button type="submit" class="btn btn-round btn-min" style="background-color: #8fc9ae; color: white" id="btnfilter">Filter</button>
+                                            <button type="submit" class="btn  btn-round btn-min"  style="background-color: #8fc9ae; color: white" id="btnfilter">Filter</button>
                                         </div>
                                     </div>
                                 </form>
@@ -88,7 +77,7 @@
                             <!-- Table section -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Parking areas</h5>
+                                    <h5>Associations</h5>
                                     <span></span>
                                 </div>
                                 <div class="card-block">
@@ -108,7 +97,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Adding New Park Area</h4>
+                <h4 class="modal-title">Add New Associations</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -121,22 +110,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="parkName">Park Name</label>
-                                <input type="text" class="form-control form-control-round" id="park_name" name="park_name" placeholder="e.g. Okansa Mwalungu">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="numberOfMembers">Number of Member</label>
-                                <input type="number" class="form-control form-control-round" id="number_of_members" name="number_of_members" placeholder="e.g. 50">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="parkOwner">Park Owner</label>
-                                <input type="text" class="form-control form-control-round" id="park_owner" name="park_owner" placeholder="e.g. Tarura">
+                                <label for="Name">Name</label>
+                                <input type="text" class="form-control form-control-round" id="name" name="name" placeholder="e.g. Chama">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -152,38 +127,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="district">District</label>
-                                <select name="district_id" id="district_id" class="form-control form-control-round" onchange="getDistrictWard(this.value)">
+                                <select name="district_id" id="district_id" class="form-control form-control-round">
                                     <option value="">Select District</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="ward">Ward</label>
-                                <select class="form-control form-control-round" id="ward_id" name="ward_id">
-                                    <option>Select Ward</option>
-                                    <!-- Add options for wards -->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="vehicleType">Type of Vehicles</label>
-                                <select class="form-control form-control-round" id="vehicle_type" name="vehicle_type">
-                                    <option>Select Vehicles</option>
-                                    <option value="Motorcycle">Motorcycle</option>
-                                    <option value="Tricycle">Tricycle</option>
-                                    <option value="Both">Both</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default waves-effect btn-round" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary waves-effect waves-light btn-round" style="background-color: #24b42e;" type="submit" id="submitBtn">Add Park</button>
+                        <button class="btn waves-effect waves-light btn-round"  style="background-color: #8fc9ae; color: white" type="submit" id="submitBtn">Add Association</button>
                     </div>
                 </form>
             </div>
@@ -194,11 +149,11 @@
 
 
 
-<div class="modal fade" id="viewParkingModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="viewAssociationModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" style="font-size: middle; font-weight: 600;">Parking Area Details</h4>
+                <h4 class="modal-title" style="font-size: middle; font-weight: 600;">Association Details</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -245,10 +200,10 @@
 
                         <div class="row justify-content-center">
                             <span class="mr-2">
-                                <button type="button" class="btn btn-primary waves-effect waves-light btn-round" style="background-color: orange;">Disable Park</button>
+                                <button type="button" class="btn waves-effect waves-light btn-round" style="background-color: orange; color:white">Disable Park</button>
                             </span>
                             <span class="mr-2">
-                                <button type="button" class="btn btn-primary waves-effect waves-light btn-round" style="background-color: #24b42e;">View Members</button>
+                                <button type="button" class="btn  waves-effect waves-light btn-round"  style="background-color: #8fc9ae; color: white">View Members</button>
                             </span>
 
                         </div>
@@ -310,7 +265,7 @@
                 <div class="row" style="padding-left: 20px;padding-right: 20px;">
                     <div class="col-md-12">
                         <div>
-                            <h5 style="font-size: 1.2em; font-weight: 600;">Parking Area Leadership</h5>
+                            <h5 style="font-size: 1.2em; font-weight: 600;">Association Leadership</h5>
                         </div>
                         <div class="row">
                             <div class="col-md-12 card" style=" padding: 20px;">
@@ -339,7 +294,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3"></div>
-                                        <button type="button" class="btn btn-primary waves-effect waves-light btn-round" style="background-color: #24b42e;">Vote to Leadership</button>
+                                        <button type="button" class="btn waves-effect waves-light btn-round"  style="background-color: #8fc9ae; color: white">Vote to Leadership</button>
 
                                     </div>
                                 </div>
@@ -371,7 +326,7 @@
 
             jQuery.ajax({
                 type: "GET",
-                url: "/parking/parking_view",
+                url: "/associations/association_view",
                 dataType: 'html',
                 cache: false,
                 success: function(data) {
@@ -397,7 +352,7 @@
 
             jQuery.ajax({
                 type: "POST",
-                url: "/parking/saveParking",
+                url: "/associations/saveAssociation",
                 data: formData,
                 dataType: 'json',
                 processData: false,
@@ -441,48 +396,22 @@
             });
         }
 
-        function getDistrictWard(id) {
-
-            $("#ward_id").html("")
-            jQuery.ajax({
-                type: "GET",
-                url: "/location/getDistrictWard/" + id,
-                dataType: 'json',
-                success: function(data) {
-                    var div = "";
-                    $.each(data, function(index, row) {
-
-                        div += "<option value='" + row.id + "'>" + row.name + "</option>";
-                    })
-
-                    $("#ward_id").html("<option value=''>Select Ward</option>")
-                    $("#ward_id").append(div)
-                    $("#ward_id").select2()
-                }
-            });
-        }
-
-        function editParking(id) {
+        function editAssociation(id) {
             document.getElementById('form').reset();
             $("#hidden_id").val("")
 
             jQuery.ajax({
                 type: "GET",
-                url: "/parking/editParking/" + id,
+                url: "/associations/editAssociation/" + id,
                 dataType: 'json',
                 success: function(data) {
                     $("#hidden_id").val(data.id)
 
                     var rowData = data.data;
 
-                    $("#park_name").val(rowData.park_name);
-                    $("#park_owner").val(rowData.park_owner);
-                    $("#vehicle_type").val(rowData.vehicle_type);
-                    $("#number_of_members").val(rowData.number_of_members);
-
+                    $("#name").val(rowData.name);
                     $("#region_id").val(rowData.region_id);
                     $("#district_id").html("<option value='" + rowData.district_id + "'>" + data.district.name + "</option>");
-                    $("#ward_id").html("<option value='" + rowData.ward_id + "'>" + data.ward.name + "</option>");
 
 
                     // Update the button text
@@ -494,15 +423,15 @@
             });
         }
 
-        function deleteParking(id) {
-            var conf = confirm("Are you sure you want to delete a parking  ?");
+        function deleteAssociation(id) {
+            var conf = confirm("Are you sure you want to delete a Association  ?");
             if (!conf) {
                 return;
             }
 
             jQuery.ajax({
                 type: "GET",
-                url: "/parking/deleteParking/" + id,
+                url: "/associations/deleteAssociation/" + id,
                 dataType: 'json',
                 success: function(data) {
                     if (data.status == 200) {
@@ -516,34 +445,26 @@
         }
 
 
-        function viewParking(id) {
+        function viewAssociation(id) {
             // document.getElementById('formviewMore').reset();
             // $("#hidden_id").val("")
 
             jQuery.ajax({
                 type: "GET",
-                url: "/parking/viewParking/" + id,
+                url: "/associations/viewAssociation/" + id,
                 dataType: 'json',
                 success: function(data) {
                     // $("#hidden_id").val(data.id)
 
                     var rowData = data.data;
 
-                    $("#naaa").val(rowData.park_name);
-                    // $("#park_owner").val(rowData.park_owner);
-                    // $("#vehicle_type").val(rowData.vehicle_type);
-                    // $("#number_of_members").val(rowData.number_of_members);
-
-                    // $("#region_id").val(rowData.region_id);
-                    // $("#district_id").html("<option value='" + rowData.district_id + "'>" + data.district.name + "</option>");
-                    // $("#ward_id").html("<option value='" + rowData.ward_id + "'>" + data.ward.name + "</option>");
-
+                    $("#naaa").val(rowData.name);
 
                     // Update the button text
                     // $("#submitBtn").html("Update");
 
                     // Open the modal
-                    $('#viewParkingModal').modal('show');
+                    $('#viewAssociationModal').modal('show');
                 }
             });
         }

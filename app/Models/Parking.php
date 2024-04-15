@@ -25,8 +25,8 @@ class Parking extends Model
         DB::table('parking_area')->where(['archive' => 0, 'id' => $id])->update(['archive' => 1]);
     }
 
-    public function getParking($regionId, $districtId, $wardId)
+    public function getParking($wardId)
     {
-        return DB::table('parking_area')->where(['archive' => 0, 'region_id' => $regionId, 'district_id' => $districtId, 'ward_id' => $wardId])->orderBy('id', 'desc')->get();
+        return DB::table('parking_area')->where(['archive' => 0, 'ward_id' => $wardId])->orderBy('id', 'desc')->get(['id','park_name']);
     }
 }

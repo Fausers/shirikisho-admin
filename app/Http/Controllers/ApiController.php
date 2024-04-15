@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Association;
 use App\Models\NextSMSModel;
 use App\Models\Parking;
 use App\Models\ServiceModel;
@@ -294,12 +295,23 @@ class ApiController extends Controller
         }
     }
 
-    public function getParking($regionId, $districtId, $wardId)
+    public function getParking($wardId)
     {
         try {
             $parkingModel = new Parking();
-            $data = $parkingModel->getParking($regionId, $districtId, $wardId);
+            $data = $parkingModel->getParking($wardId);
             return response()->json(['status' => 200, 'message' => 'Parking fetched successfull', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'result' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function getAssociations($districtId)
+    {
+        try {
+            $associationsModel = new Association();
+            $data = $associationsModel->getAllAssocciationByDistrict($districtId);
+            return response()->json(['status' => 200, 'message' => 'Associations fetched successfull', 'data' => $data]);
         } catch (\Exception $e) {
             return response()->json(['status' => 500, 'result' => 'error', 'message' => $e->getMessage()]);
         }

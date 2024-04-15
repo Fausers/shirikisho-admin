@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssociationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DriverController;
@@ -82,5 +83,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/editParking/{id}', [ParkingController::class, 'editParking']);
         Route::get('/viewParking/{id}', [ParkingController::class, 'viewParking']);
         Route::get('/deleteParking/{id}', [ParkingController::class, 'deleteParking']);
+    });
+
+    Route::prefix('associations')->group(function () {
+        Route::get('/associations', [AssociationController::class, 'associations']);
+        Route::get('/association_view', [AssociationController::class, 'association_view']);
+        Route::post('/saveAssociation', [AssociationController::class, 'saveAssociation']);
+        Route::get('/editAssociation/{id}', [AssociationController::class, 'editAssociation']);
+        Route::get('/viewAssociation/{id}', [AssociationController::class, 'viewAssociation']);
+        Route::get('/deleteAssociation/{id}', [AssociationController::class, 'deleteAssociation']);
     });
 });

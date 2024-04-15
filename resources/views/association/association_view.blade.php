@@ -6,11 +6,6 @@
                 <th>Name</th>
                 <th>Region</th>
                 <th>District</th>
-                <th>Ward</th>
-                <th>C.No</th>
-                <th>Mx.No</th>
-                <th>R.No</th>
-                <th>Vehicle Type</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -21,27 +16,21 @@
 
                 $regionName = $ServicesModel->getRegionRow($docu->region_id);
                 $districtName = $ServicesModel->getDistrictRow($docu->district_id);
-                $wardName = $ServicesModel->getWardRow($docu->ward_id);
             ?>
                 <tr>
 
                     <td><?= $n ?></td>
-                    <td><?= $docu->park_name ?></td>
+                    <td><?= $docu->name ?></td>
                     <td><?= $regionName->name ?></td>
                     <td><?= $districtName->name ?></td>
-                    <td><?= $wardName->name ?></td>
-                    <td>0</td>
-                    <td><?= $docu->number_of_members ?></td>
-                    <td><?= $docu->number_of_members ?></td>
-                    <td><?= $docu->vehicle_type ?></td>
                     <td>
                         <div class="" role="group" aria-label="Basic outlined example">
 
-                            <button type="button" title="Edit Action" onclick="editParking('<?= $docu->id ?>')" class="btn btn-info btn-round btn-mini">
+                            <button type="button" title="Edit Action" onclick="editAssociation('<?= $docu->id ?>')" class="btn btn-info btn-round btn-mini">
                                 Edit</button>
-                            <button type="button" title="Delete Action" onclick="viewParking('<?= $docu->id ?>')" class="btn btn-success btn-round btn-mini">
+                            <button type="button" title="Delete Action" onclick="viewAssociation('<?= $docu->id ?>')" class="btn btn-success btn-round btn-mini">
                                 View More</button>
-                            <button type="button" title="Delete Action" onclick="deleteParking('<?= $docu->id ?>')" class="btn btn-round btn-mini" style="background-color: orange;color:white">
+                            <button type="button" title="Delete Action" onclick="deleteAssociation('<?= $docu->id ?>')" class="btn btn-round btn-mini" style="background-color: orange;color:white">
                                 Delete</button>
 
                         </div>

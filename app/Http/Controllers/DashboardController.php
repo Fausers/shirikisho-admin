@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ServiceModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,8 +11,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $ServicesModel = new ServiceModel();
         $user = Auth::user();
-        return view('dashboard', compact('user'));
+        $region = $ServicesModel->getRegion();
+        return view('dashboard', compact('user','region'));
     }
 
     public function showVerfy()
@@ -25,9 +28,13 @@ class DashboardController extends Controller
         $month = $request->input('month');
         $year = $request->input('year');
 
+        $region_id = $request->input('region_id');
+        $district_id = $request->input('district_id');
+        $ward_id = $request->input('ward_id');
+
         try {
             $userModel = new User();
-            $data = $userModel->getTotalDriversByCreatedAt($month, $year);
+            $data = $userModel->getTotalDriversByCreatedAt($month, $year,$region_id,$district_id,$ward_id);
 
             // ActivityLog::logActivity($message);
 
