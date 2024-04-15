@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NextSMSModel;
+use App\Models\Parking;
 use App\Models\ServiceModel;
 use App\Models\User;
 use App\Models\UserOTP;
@@ -290,6 +291,17 @@ class ApiController extends Controller
             return response()->json(['status' => 200, 'message' => 'District Wards fetched successfull', 'data' => $data]);
         } catch (\Exception $e) {
             return response()->json(['status' => 500, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function getParking($regionId, $districtId, $wardId)
+    {
+        try {
+            $parkingModel = new Parking();
+            $data = $parkingModel->getParking($regionId, $districtId, $wardId);
+            return response()->json(['status' => 200, 'message' => 'Parking fetched successfull', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'result' => 'error', 'message' => $e->getMessage()]);
         }
     }
 }

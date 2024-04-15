@@ -105,7 +105,7 @@
 
                                         <div class="row m-t-30">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-primary btn-md btn-block btn-round waves-effect text-center m-b-20" style="background-color: #24b42e;">Continue</button>
+                                                <button type="submit" class="btn btn-primary btn-md btn-block btn-round waves-effect text-center m-b-20" style="background-color: #8fc9ae;">Continue</button>
                                             </div>
                                         </div>
 

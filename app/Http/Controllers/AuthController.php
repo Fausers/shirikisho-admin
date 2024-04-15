@@ -48,7 +48,7 @@ class AuthController extends Controller
                 } while (UserOTP::where('otp_code', $otpCode)->exists());
 
                 // Send OTP via SMS
-                $smsSent = (new NextSMSModel())->sendSms($user->phone_number, "Your OTP is: $otpCode", 'OTP');
+                $smsSent = (new NextSMSModel())->sendSms($user->phone_number, $otpCode . " Ni Namba yako ya uhakiki", 'Humtech');
 
                 if ($smsSent) {
                     // Store OTP code in the database

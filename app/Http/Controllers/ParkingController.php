@@ -25,13 +25,13 @@ class ParkingController extends Controller
         $parkingModel = new Parking();
         $ServicesModel = new ServiceModel();
         $data = $parkingModel->getAllParking();
-        
-        return view('parking.parking_view', compact('data', 'parkingModel','ServicesModel'));
+
+        return view('parking.parking_view', compact('data', 'parkingModel', 'ServicesModel'));
     }
 
     public function saveParking(Request $request)
     {
-        
+
         try {
             DB::beginTransaction();
 
@@ -131,18 +131,16 @@ class ParkingController extends Controller
         }
     }
 
-    public function viewParking($id){
+    public function viewParking($id)
+    {
         try {
-        $parkingModel = new Parking();
-        $data = $parkingModel->getParkingRow($id);
+            $parkingModel = new Parking();
+            $data = $parkingModel->getParkingRow($id);
 
-        $message = 'Parking successfull fetched';
-        return response()->json(['status' => 200, 'message' => $message, 'data'=>$data]);
-    } catch (\Exception $e) {
-        return response()->json(['status' => 500, 'message' => $e->getMessage()]);
+            $message = 'Parking successfull fetched';
+            return response()->json(['status' => 200, 'message' => $message, 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'message' => $e->getMessage()]);
+        }
     }
-
-
-    }
-
 }

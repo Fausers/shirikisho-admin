@@ -37,8 +37,11 @@ use Illuminate\Validation\ValidationException;
 
         // Location
         Route::get('/region', [ApiController::class, 'getRegion']);
-        Route::post('/region/{id}/district', [ApiController::class, 'regionDistrict']);
-        Route::post('/district/{id}/ward', [ApiController::class, 'districtWard']);
+        Route::get('/region/{id}/district', [ApiController::class, 'regionDistrict']);
+        Route::get('/district/{id}/ward', [ApiController::class, 'districtWard']);
+
+        // Parking
+        Route::post('/get-parking/{regionId}/{districtId}/{wardId}',[ApiController::class,'getParking']);
 
 
 

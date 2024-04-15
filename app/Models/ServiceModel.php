@@ -12,7 +12,7 @@ class ServiceModel extends Model
 
     public function getRegion()
     {
-        return DB::table('region')->where('archive', 0)->orderBy('id', 'desc')->get();
+        return DB::table('region')->where('archive', 0)->orderBy('id', 'desc')->get(['id','name']);
     }
 
     public function getRegionRow($id)
@@ -43,13 +43,13 @@ class ServiceModel extends Model
 
     public function getRegionDistrict($id)
     {
-        return DB::table('district')->where(['archive' => 0, 'region_id' => $id])->get();
+        return DB::table('district')->where(['archive' => 0, 'region_id' => $id])->get(['id','region_id','name']);
     }
 
 
     public function getDistrictWard($id)
     {
-        return DB::table('ward')->where(['archive' => 0, 'district_id' => $id])->get();
+        return DB::table('ward')->where(['archive' => 0, 'district_id' => $id])->get(['id','region_id','district_id','name']);
     }
 
     public function getWard()

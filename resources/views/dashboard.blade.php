@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card bg-c-green text-white">
+                            <div class="card text-white" style="background-color: #83afa6; color: white">
                                 <div class="card-block">
                                     <div class="row align-items-center">
                                         <div class="col">
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card bg-c-blue text-white">
+                            <div class="card text-white" style="background-color: #8fc9ae; color: white">
                                 <div class="card-block">
                                     <div class="row align-items-center">
                                         <div class="col">
@@ -76,7 +76,7 @@
                                 <div class="card-header">
                                     <div class="card-header-left ">
                                         <h5>Monthly View</h5>
-                                        <span class="text-muted">For .</span>
+                                        <span class="text-muted">For Members Registration</span>
                                     </div>
 
                                     <form id="formGraph" onsubmit="filterGraph(event)">
@@ -136,8 +136,8 @@
                                             <div class="col-md-2">
                                                 <div class="mb-2"></div>
                                                 <div class="form-group">
-                                                <br>
-                                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                                    <br>
+                                                    <button type="submit" class="btn" style="background-color: #8fc9ae; color: white">Filter</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,51 +153,74 @@
                                 </div>
 
                             </div>
+
                         </div>
-                        <div class="col-xl-4 col-md-12">
+                        <div class="col-xl-2 col-md-12">
                             <div class="card feed-card">
-                                <div class="card-header">
-                                    <h5>Feeds</h5>
-                                </div>
                                 <div class="card-block">
-                                    <div class="row m-b-30">
-                                        <div class="col-auto p-r-0">
-                                            <i class="feather icon-bell bg-simple-c-blue feed-icon"></i>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted f-right f-13">Just Now</span></h6>
-                                        </div>
-                                    </div>
-                                    <div class="row m-b-30">
-                                        <div class="col-auto p-r-0">
-                                            <i class="feather icon-shopping-cart bg-simple-c-pink feed-icon"></i>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">New order received <span class="text-muted f-right f-13">Just Now</span></h6>
-                                        </div>
-                                    </div>
-                                    <div class="row m-b-30">
-                                        <div class="col-auto p-r-0">
-                                            <i class="feather icon-file-text bg-simple-c-green feed-icon"></i>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted f-right f-13">Just Now</span></h6>
+                                    <div class="row per-task-block text-center">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <div style="padding-bottom: 60px;"></div>
+                                                    <h5 style="padding-right: 80px;">Marital Status</h5>
+                                                </div>
+                                                <div class="row per-task-block text-center">
+                                                    <div class="col-6">
+                                                        <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-secondary" style="background-color: #83afa6; color: white;"></div>
+                                                        <h6 class="text-muted">Married Driver</h6>
+                                                        <p class="text-muted">642</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row m-b-30">
-                                        <div class="col-auto p-r-0">
-                                            <i class="feather icon-shopping-cart bg-simple-c-pink feed-icon"></i>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">New order received <span class="text-muted f-right f-13">Just Now</span></h6>
+                                    <div class="row per-task-block text-center">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 style="padding-right: 80px;">Driving License</h5>
+                                                    <!-- Member verification -->
+                                                </div>
+                                                <div class="row per-task-block text-center">
+                                                    <div class="col-6">
+                                                        <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-warning"></div>
+                                                        <h6 class="text-muted">Licensed Driver</h6>
+                                                        <p class="text-muted">642</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row m-b-30">
-                                        <div class="col-auto p-r-0">
-                                            <i class="feather icon-file-text bg-simple-c-green feed-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-12">
+                            <div class="card feed-card">
+                                <div class="card-block">
+                                    <div class="row per-task-block text-center">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 style="padding-left: 40px;">Gender</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <canvas id="genderChart"></canvas>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted f-right f-13">Just Now</span></h6>
+                                    </div>
+                                    <div class="row per-task-block text-center">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 style="padding-left: 50px;">Insuarance</h5>
+                                                    <!-- Member verification -->
+                                                </div>
+                                                <div class="card-block">
+                                                    <canvas id="pieChart"></canvas>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -209,113 +232,50 @@
                         <div class="col-xl-4 col-md-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Total Leads</h5>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                            <li><i class="fa fa-refresh reload-card"></i></li>
-                                            <li><i class="fa fa-trash close-card"></i></li>
-                                        </ul>
-                                    </div>
+                                    <h5>Transanctions</h5>
+                                    <!-- put filter for month and year for polar chart -->
+                                    <!-- <span></span> -->
+
                                 </div>
                                 <div class="card-block">
-                                    <p class="text-c-green f-w-500"><i class="feather icon-chevrons-up m-r-5"></i> 18% High than last month</p>
-                                    <div class="row">
-                                        <div class="col-4 b-r-default">
-                                            <p class="text-muted m-b-5">Overall</p>
-                                            <h5>76.12%</h5>
-                                        </div>
-                                        <div class="col-4 b-r-default">
-                                            <p class="text-muted m-b-5">Monthly</p>
-                                            <h5>16.40%</h5>
-                                        </div>
-                                        <div class="col-4">
-                                            <p class="text-muted m-b-5">Day</p>
-                                            <h5>4.56%</h5>
-                                        </div>
-                                    </div>
+                                    <canvas id="polarChart" width="400" height="400"></canvas>
                                 </div>
-                                <canvas id="tot-lead" height="150"></canvas>
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Total Vendors</h5>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                            <li><i class="fa fa-refresh reload-card"></i></li>
-                                            <li><i class="fa fa-trash close-card"></i></li>
-                                        </ul>
-                                    </div>
+                                    <h5>Government Transaction</h5>
+                                    <!-- filter for month and year -->
+                                    <!-- <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span> -->
+
                                 </div>
                                 <div class="card-block">
-                                    <p class="text-c-pink f-w-500"><i class="feather icon-chevrons-down m-r-15"></i> 24% High than last month</p>
-                                    <div class="row">
-                                        <div class="col-4 b-r-default">
-                                            <p class="text-muted m-b-5">Overall</p>
-                                            <h5>68.52%</h5>
-                                        </div>
-                                        <div class="col-4 b-r-default">
-                                            <p class="text-muted m-b-5">Monthly</p>
-                                            <h5>28.90%</h5>
-                                        </div>
-                                        <div class="col-4">
-                                            <p class="text-muted m-b-5">Day</p>
-                                            <h5>13.50%</h5>
-                                        </div>
-                                    </div>
+                                    <canvas id="bubblechart" width="400" height="400"></canvas>
                                 </div>
-                                <canvas id="tot-vendor" height="150"></canvas>
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Invoice Generate</h5>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                            <li><i class="fa fa-refresh reload-card"></i></li>
-                                            <li><i class="fa fa-trash close-card"></i></li>
-                                        </ul>
-                                    </div>
+                                    <h5>Candlestick chart</h5>
+                                    <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+
                                 </div>
                                 <div class="card-block">
-                                    <p class="text-c-green f-w-500"><i class="feather icon-chevrons-up m-r-15"></i> 20% High than last month</p>
-                                    <div class="row">
-                                        <div class="col-4 b-r-default">
-                                            <p class="text-muted m-b-5">Overall</p>
-                                            <h5>68.52%</h5>
-                                        </div>
-                                        <div class="col-4 b-r-default">
-                                            <p class="text-muted m-b-5">Monthly</p>
-                                            <h5>28.90%</h5>
-                                        </div>
-                                        <div class="col-4">
-                                            <p class="text-muted m-b-5">Day</p>
-                                            <h5>13.50%</h5>
-                                        </div>
-                                    </div>
+                                    <div id="chart_Candlestick" style="width: 100%; height: 300px;"></div>
                                 </div>
-                                <canvas id="invoice-gen" height="150"></canvas>
                             </div>
+
                         </div>
                         <!-- income end -->
 
                         <!-- ticket and update start -->
-                        <div class="col-xl-6 col-md-12">
+                        <div class="col-xl-4 col-md-12">
                             <div class="card table-card">
                                 <div class="card-header">
-                                    <h5>Recent Tickets</h5>
-                                    <div class="card-header-right">
+                                    <h5>(5) Latest Members</h5>
+                                    <!-- <div class="card-header-right">
                                         <ul class="list-unstyled card-option">
                                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
                                             <li><i class="fa fa-window-maximize full-card"></i></li>
@@ -323,249 +283,71 @@
                                             <li><i class="fa fa-refresh reload-card"></i></li>
                                             <li><i class="fa fa-trash close-card"></i></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="card-block">
                                     <div class="table-responsive">
                                         <table class="table table-hover table-borderless">
                                             <thead>
                                                 <tr>
-                                                    <th>Status</th>
-                                                    <th>Subject</th>
-                                                    <th>Department</th>
-                                                    <th>Date</th>
+                                                    <th>Profile Image</th>
+                                                    <th>Full Name</th>
+                                                    <th>Parking Area</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><label class="label label-success">open</label></td>
-                                                    <td>Website down for one week</td>
-                                                    <td>Support</td>
-                                                    <td>Today 2:00</td>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+
+                                                    <td>Juma Hassan Mushi</td>
+                                                    <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label class="label label-primary">progress</label></td>
-                                                    <td>Loosing control on server</td>
-                                                    <td>Support</td>
-                                                    <td>Yesterday</td>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Juma Hassan Mushi</td>
+                                                    <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label class="label label-danger">closed</label></td>
-                                                    <td>Authorizations keys</td>
-                                                    <td>Support</td>
-                                                    <td>27, Aug</td>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Juma Hassan Mushi</td>
+                                                    <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label class="label label-success">open</label></td>
-                                                    <td>Restoring default settings</td>
-                                                    <td>Support</td>
-                                                    <td>Today 9:00</td>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Juma Hassan Mushi</td>
+                                                    <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label class="label label-primary">progress</label></td>
-                                                    <td>Loosing control on server</td>
-                                                    <td>Support</td>
-                                                    <td>Yesterday</td>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Juma Hassan Mushi</td>
+                                                    <td>Kamata</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><label class="label label-success">open</label></td>
-                                                    <td>Restoring default settings</td>
-                                                    <td>Support</td>
-                                                    <td>Today 9:00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label class="label label-danger">closed</label></td>
-                                                    <td>Authorizations keys</td>
-                                                    <td>Support</td>
-                                                    <td>27, Aug</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label class="label label-success">open</label></td>
-                                                    <td>Restoring default settings</td>
-                                                    <td>Support</td>
-                                                    <td>Today 9:00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label class="label label-primary">progress</label></td>
-                                                    <td>Loosing control on server</td>
-                                                    <td>Support</td>
-                                                    <td>Yesterday</td>
-                                                </tr>
+
                                             </tbody>
                                         </table>
                                         <div class="text-right m-r-20">
-                                            <a href="#!" class=" b-b-primary text-primary">View all Projects</a>
+                                            <a href="#!" class=" b-b-primary text-primary">View all Members</a>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-md-12">
-                            <div class="card latest-update-card">
-                                <div class="card-header">
-                                    <h5>Latest Updates</h5>
-                                    <div class="card-header-right">
-                                        <ul class="list-unstyled card-option">
-                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                            <li><i class="fa fa-refresh reload-card"></i></li>
-                                            <li><i class="fa fa-trash close-card"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    <div class="latest-update-box">
-                                        <div class="row p-t-20 p-b-30">
-                                            <div class="col-auto text-right update-meta">
-                                                <p class="text-muted m-b-0 d-inline">2 hrs ago</p>
-                                                <i class="feather icon-twitter bg-info update-icon"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h6>+ 1652 Followers</h6>
-                                                <p class="text-muted m-b-0">You’re getting more and more followers, keep it up!</p>
-                                            </div>
-                                        </div>
-                                        <div class="row p-b-30">
-                                            <div class="col-auto text-right update-meta">
-                                                <p class="text-muted m-b-0 d-inline">4 hrs ago</p>
-                                                <i class="feather icon-briefcase bg-simple-c-pink update-icon"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h6>+ 5 New Products were added!</h6>
-                                                <p class="text-muted m-b-0">Congratulations!</p>
-                                            </div>
-                                        </div>
-                                        <div class="row p-b-30">
-                                            <div class="col-auto text-right update-meta">
-                                                <p class="text-muted m-b-0 d-inline">1 day ago</p>
-                                                <i class="feather icon-check bg-simple-c-yellow  update-icon"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h6>Database backup completed!</h6>
-                                                <p class="text-muted m-b-0">Download the <span class="text-c-blue">latest backup</span>.</p>
-                                            </div>
-                                        </div>
-                                        <div class="row p-b-0">
-                                            <div class="col-auto text-right update-meta">
-                                                <p class="text-muted m-b-0 d-inline">2 day ago</p>
-                                                <i class="feather icon-facebook bg-simple-c-green update-icon"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h6>+2 Friend Requests</h6>
-                                                <p class="text-muted m-b-10">This is great, keep it up!</p>
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <tr>
-                                                            <td class="b-none">
-                                                                <a href="#!" class="align-middle">
-                                                                    <img src="..\files\assets\images\avatar-2.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                                                    <div class="d-inline-block">
-                                                                        <h6>Jeny William</h6>
-                                                                        <p class="text-muted m-b-0">Graphic Designer</p>
-                                                                    </div>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="b-none">
-                                                                <a href="#!" class="align-middle">
-                                                                    <img src="..\files\assets\images\avatar-1.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                                                    <div class="d-inline-block">
-                                                                        <h6>John Deo</h6>
-                                                                        <p class="text-muted m-b-0">Web Designer</p>
-                                                                    </div>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="#!" class="b-b-primary text-primary">View all Projects</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ticket and update end -->
-
-                        <!-- latest activity end -->
-                        <div class="col-xl-8 col-md-12">
-                            <div class="card latest-activity-card">
-                                <div class="card-header">
-                                    <h5>Latest Activity</h5>
-                                </div>
-                                <div class="card-block">
-                                    <div class="latest-update-box">
-                                        <div class="row p-t-20 p-b-30">
-                                            <div class="col-auto text-right update-meta">
-                                                <p class="text-muted m-b-0 d-inline">just now</p>
-                                                <i class="feather icon-sunrise bg-simple-c-blue update-icon"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h6>John Deo</h6>
-                                                <p class="text-muted m-b-15">The trip was an amazing and a life changing experience!!</p>
-                                                <img src="..\files\assets\images\mega-menu\01.jpg" alt="" class="img-fluid img-100 m-r-15 m-b-10">
-                                                <img src="..\files\assets\images\mega-menu\03.jpg" alt="" class="img-fluid img-100 m-r-15 m-b-10">
-                                            </div>
-                                        </div>
-                                        <div class="row p-b-30">
-                                            <div class="col-auto text-right update-meta">
-                                                <p class="text-muted m-b-0 d-inline">5 min ago</p>
-                                                <i class="feather icon-file-text bg-simple-c-blue update-icon"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h6>Administrator</h6>
-                                                <p class="text-muted m-b-0">Free courses for all our customers at A1 Conference Room - 9:00 am tomorrow!</p>
-                                            </div>
-                                        </div>
-                                        <div class="row p-b-30">
-                                            <div class="col-auto text-right update-meta">
-                                                <p class="text-muted m-b-0 d-inline">3 hours ago</p>
-                                                <i class="feather icon-map-pin bg-simple-c-blue update-icon"></i>
-                                            </div>
-                                            <div class="col">
-                                                <h6>Jeny William</h6>
-                                                <p class="text-muted m-b-15">Happy Hour! Free drinks at <span class="text-c-blue">Cafe-Bar all </span>day long!</p>
-                                                <div id="markers-map" style="height:200px;width:100%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <a href="#!" class=" b-b-primary text-primary">View all Activity</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-12">
-                            <div class="card per-task-card">
+                            <div class="card table-card">
                                 <div class="card-header">
-                                    <h5>Your Tasks</h5>
-                                </div>
-                                <div class="card-block">
-                                    <div class="row per-task-block text-center">
-                                        <div class="col-6">
-                                            <div data-label="45%" class="radial-bar radial-bar-45 radial-bar-lg radial-bar-primary"></div>
-                                            <h6 class="text-muted">Finished</h6>
-                                            <p class="text-muted">642</p>
-                                            <button class="btn btn-primary btn-round btn-sm">Manage</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <div data-label="30%" class="radial-bar radial-bar-30 radial-bar-lg radial-bar-primary"></div>
-                                            <h6 class="text-muted">Remaining</h6>
-                                            <p class="text-muted">495</p>
-                                            <button class="btn btn-primary btn-outline-primary btn-round btn-sm">Manage</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="card feed-card">
-                                <div class="card-header">
-                                    <h5>Upcoming Deadlines</h5>
-                                    <div class="card-header-right">
+                                    <h5>(5) Best Recruiters</h5>
+                                    <!-- <div class="card-header-right">
                                         <ul class="list-unstyled card-option">
                                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
                                             <li><i class="fa fa-window-maximize full-card"></i></li>
@@ -573,45 +355,153 @@
                                             <li><i class="fa fa-refresh reload-card"></i></li>
                                             <li><i class="fa fa-trash close-card"></i></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="card-block">
-                                    <div class="row m-b-25">
-                                        <div class="col-auto p-r-0">
-                                            <img src="..\files\assets\images\mega-menu\01.jpg" alt="" class="img-fluid img-50">
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">New able - Redesign</h6>
-                                            <p class="text-c-pink m-b-0">2 Days Remaining</p>
-                                        </div>
-                                    </div>
-                                    <div class="row m-b-25">
-                                        <div class="col-auto p-r-0">
-                                            <img src="..\files\assets\images\mega-menu\02.jpg" alt="" class="img-fluid img-50">
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">New Admin Dashboard</h6>
-                                            <p class="text-c-pink m-b-0">Proposal in 6 Days</p>
-                                        </div>
-                                    </div>
-                                    <div class="row m-b-25">
-                                        <div class="col-auto p-r-0">
-                                            <img src="..\files\assets\images\mega-menu\03.jpg" alt="" class="img-fluid img-50">
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="m-b-5">Logo Design</h6>
-                                            <p class="text-c-green m-b-0">10 Days Remaining</p>
-                                        </div>
-                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th>Profile Image</th>
+                                                    <th>Full Name</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
 
-                                    <div class="text-center">
-                                        <a href="#!" class="b-b-primary text-primary">View all Feeds</a>
+                                                    <td>Asha Mussa Said</td>
+                                                    <td>420</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Asha Mussa Said</td>
+                                                    <td>620</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Asha Mussa Said</td>
+                                                    <td>790</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Asha Mussa Said</td>
+                                                    <td>250</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 100px; width: 30px;">
+                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
+                                                    </td>
+                                                    <td>Asha Mussa Said</td>
+                                                    <td>300</td>
+                                                </tr>
+                                                <tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="text-right m-r-20">
+                                            <a href="#!" class=" b-b-primary text-primary">View all Recruiters</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <!-- latest activity end -->
+                        <div class="col-xl-4 col-md-12">
+                            <div class="card table-card">
+                                <div class="card-header">
+                                    <h5>(10) Latest Transactions</h5>
+                                    <!-- <div class="card-header-right">
+                                        <ul class="list-unstyled card-option">
+                                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                                            <li><i class="fa fa-minus minimize-card"></i></li>
+                                            <li><i class="fa fa-refresh reload-card"></i></li>
+                                            <li><i class="fa fa-trash close-card"></i></li>
+                                        </ul>
+                                    </div> -->
+                                </div>
+                                <div class="card-block">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th>Full Name</th>
+                                                    <th>Service</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Latra</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Disposable</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Mkopo Chap</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Muonekano Mpya</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Bima Ya Chombo</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Leseni</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Kidebe</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Bima Ya Afya</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Ada</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Khadija Salehe Hashimu</td>
+                                                    <td>Maegesho</td>
+                                                    <td>TZS 129000.00</td>
+                                                </tr>
+                                                <tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="text-right m-r-20">
+                                            <a href="#!" class=" b-b-primary text-primary">View all Transactions</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ticket and update end -->
                     </div>
                 </div>
             </div>
@@ -622,6 +512,10 @@
         </div>
     </div>
 </div>
+
+<!-- Include ApexCharts JavaScript library -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 
 <?php
 $currentMonth = date('n');
@@ -642,7 +536,11 @@ $currentYear = date('Y');
         });
     }
     $(document).ready(function() {
-        getAllDrivers();
+        polarGraph();
+        bubbleChart();
+        candleChart();
+        genderChart();
+        verificationGraph();
     });
 
 
@@ -706,7 +604,7 @@ $currentYear = date('Y');
 
         // Extract data for line chart
         var lineLabels = rowData.map(function(item) {
-            return item.created_date;
+            return item.day;
         });
         var lineDataPoints = rowData.map(function(item) {
             return item.total_users;
@@ -739,14 +637,14 @@ $currentYear = date('Y');
                     data: lineDataPoints,
                     type: 'line',
                     fill: false,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(240, 138, 23, 0.8)',
+                    backgroundColor: 'rgba(240, 138, 23, 0.8)',
                     borderWidth: 1
                 }, {
                     label: 'Total Drivers (Bar)',
                     data: barDataPoints,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: '#8fc9ae',
+                    borderColor: '#8fc9ae',
                     borderWidth: 1
                 }]
             },
@@ -762,10 +660,222 @@ $currentYear = date('Y');
                         }
                     }]
                 }
-            }
+            },
         });
 
     };
+
+    function polarGraph() {
+        // Hardcoded data for the polar chart
+        var data = {
+            labels: ['Government', 'Insurance', 'Uniform', 'Ada', 'Others'],
+            datasets: [{
+                label: 'Dataset 1',
+                data: [12, 19, 5, 2, 3],
+                backgroundColor: [
+                    '#79a8a9',
+                    '#d9dad7',
+                    // '#83afa6',
+                    '#f0d587',
+                    '#0b88a8',
+                    '#678c40'
+                ],
+                borderColor: [
+                    '#79a8a9',
+                    '#d9dad7',
+                    // '#83afa6',
+                    '#f0d587',
+                    '#0b88a8',
+                    '#678c40'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuration options for the polar chart
+        var options = {
+            scale: {
+                ticks: {
+                    beginAtZero: true
+                }
+            }
+        };
+
+        // Get the canvas element
+        var ctx = document.getElementById('polarChart').getContext('2d');
+
+        // Create the polar chart
+        var polarChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: data,
+            options: options
+        });
+    }
+
+    function bubbleChart() {
+        // Hardcoded data for the bubble chart
+        var data = {
+            datasets: [{
+                label: 'Transactions(License, Latra, Maegesho)',
+                data: [{
+                        x: 20,
+                        y: 30,
+                        r: 15
+                    },
+                    {
+                        x: 40,
+                        y: 10,
+                        r: 10
+                    },
+                    {
+                        x: 10,
+                        y: 40,
+                        r: 20
+                    },
+                    {
+                        x: 30,
+                        y: 20,
+                        r: 25
+                    },
+                    {
+                        x: 50,
+                        y: 50,
+                        r: 30
+                    }
+                ],
+                backgroundColor: '#8fc9ae',
+                borderColor: '#8fc9ae',
+            }]
+        };
+
+        // Configuration options for the bubble chart
+        var options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        };
+
+        // Get the canvas element
+        var ctx = document.getElementById('bubblechart').getContext('2d');
+
+        // Create the bubble chart
+        var bubbleChart = new Chart(ctx, {
+            type: 'bubble',
+            data: data,
+            options: options
+        });
+    }
+
+    function candleChart() {
+        // Sample data for Candlestick chart
+        var series = [{
+            data: [{
+                    x: new Date('2024-04-05'),
+                    y: [40, 90, 30, 80]
+                },
+                {
+                    x: new Date('2024-04-06'),
+                    y: [50, 95, 35, 85]
+                },
+                {
+                    x: new Date('2024-04-07'),
+                    y: [30, 70, 20, 60]
+                },
+                {
+                    x: new Date('2024-04-08'),
+                    y: [35, 85, 25, 75]
+                },
+                {
+                    x: new Date('2024-04-09'),
+                    y: [30, 80, 25, 70]
+                }
+            ]
+        }];
+
+        // Initialize Candlestick chart
+        var options = {
+            chart: {
+                type: 'candlestick',
+                height: 300,
+            },
+            series: series,
+            xaxis: {
+                type: 'datetime',
+            },
+            yaxis: {
+                tooltip: {
+                    enabled: true
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart_Candlestick"), options);
+        chart.render();
+    }
+
+    function genderChart() {
+        // Sample data for gender distribution
+        var data = {
+            labels: ['Male', 'Female'],
+            datasets: [{
+                data: [45, 55], // Sample percentage distribution
+                backgroundColor: [
+                    '#8fc9ae', // Male
+                    '#d9dad7' // Female
+                ],
+
+                borderWidth: 0
+            }]
+        };
+
+        // Options for the gender chart
+        var options = {
+            legend: {
+                display: false // Hide legend
+            },
+            responsive: true
+        };
+
+        // Create the gender chart
+        var ctx = document.getElementById('genderChart').getContext('2d');
+        var genderChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+    }
+
+    function verificationGraph() {
+        // Sample data for the pie chart
+        var data = {
+            // labels: ['Red', 'Purple',],
+            datasets: [{
+                data: [12, 2], // Sample data values
+                backgroundColor: [
+                    '#d9dad7',
+                    '#8fc9ae'
+                ],
+                borderWidth: 0
+            }]
+        };
+
+        // Options for the pie chart
+        var options = {
+            responsive: true
+        };
+
+        // Create the pie chart
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    }
 </script>
 
 

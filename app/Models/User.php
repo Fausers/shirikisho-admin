@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,20 +50,33 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
     public function getTotalDriversByCreatedAt($month, $year)
     {
-        // Get the total number of users grouped by their creation date
-        $userCounts = User::query()
-            ->whereYear('created_at', $year)
-            ->whereMonth('created_at', $month)
-            ->where('role', 2) // Assuming you want to filter only drivers (role = 2)
-            ->selectRaw('DATE(created_at) as created_date, COUNT(*) as total_users')
-            ->groupBy('created_date')
-            ->orderBy('created_date', 'asc')
-            ->get();
-    
-        return $userCounts;
+        // Get the start and end dates of the specified month
+        $startDate = Carbon::createFromDate($year, $month, 1)->startOfMonth();
+        $endDate = Carbon::createFromDate($year, $month, 1)->endOfMonth();
+
+        // Create an array to hold the result
+        $result = [];
+
+        // Loop through each day of the month
+        while ($startDate->lte($endDate)) {
+            // Get the total number of users created on the current day
+            $totalCount = User::whereDate('created_at', $startDate)
+                ->where('role', 2) // Assuming you want to filter only drivers (role = 2)
+                ->count();
+
+            // Add the date and total count to the result array
+            $result[] = [
+                'created_date' => $startDate->toDateString(),
+                'day' => $startDate->day,
+                'total_users' => $totalCount,
+            ];
+
+            // Move to the next day
+            $startDate->addDay();
+        }
+
+        return $result;
     }
-    
 }
