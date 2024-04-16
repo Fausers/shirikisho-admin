@@ -157,7 +157,7 @@ class DriverController extends Controller
     public function updateDrive(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            // 'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             // 'gender' => 'required',
             // 'dob' => 'required',
             // 'marital_status' => 'required',
@@ -229,6 +229,19 @@ class DriverController extends Controller
             ];
 
             DB::table('user_vehicle')->insert($vehicleData);
+
+             // Update or insert next of kin details
+             $vehicleData = [
+                'name' => $request->input('name'),
+                'phone' => $request->input('phone'),
+                'user_id' => $id,
+                'created_by' => $user_id,
+                'updated_by' => $user_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+            DB::table('next_of_kins')->insert($vehicleData);
 
             DB::commit();
 

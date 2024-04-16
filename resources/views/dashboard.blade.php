@@ -14,7 +14,7 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <p class="m-b-5">Active Members</p>
-                                            <h4 class="m-b-0">852</h4>
+                                            <h4 class="m-b-0">4620</h4>
                                         </div>
                                         <div class="col col-auto text-right">
                                             <i class="feather icon-user f-50"></i>
@@ -29,7 +29,7 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <p class="m-b-5">Inactive Members</p>
-                                            <h4 class="m-b-0">5,852</h4>
+                                            <h4 class="m-b-0">0</h4>
                                         </div>
                                         <div class="col col-auto text-right">
                                             <i class="feather icon-credit-card f-50"></i>
@@ -156,7 +156,7 @@
                                                 <div class="form-group">
                                                     <label for="ward">Ward</label>
                                                     <select class="form-control form-control-round" id="ward_id" name="ward_id">
-                                                        <option>Select Ward</option>
+                                                        <!-- <option>Select Ward</option> -->
                                                         <!-- Add options for wards -->
                                                     </select>
                                                 </div>

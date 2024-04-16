@@ -51,56 +51,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function getTotalDriversByCreatedAt($month, $year,$region_id,$district_id,$ward_id)
+    public function getTotalDriversByCreatedAt($month, $year, $regionId, $districtId, $wardId)
     {
-
-        //   // Get the start and end dates of the specified month
-        //   $startDate = Carbon::createFromDate($year, $month, 1)->startOfMonth();
-        //   $endDate = Carbon::createFromDate($year, $month, 1)->endOfMonth();
-      
-        //   // Create an array to hold the result
-        //   $result = [];
-      
-        //   // Query to retrieve total users for each day
-        //   $query = DB::table('users')
-        //       ->join('parking_area', 'users.parking_id', '=', 'parking_area.id')
-        //       ->selectRaw('DATE(users.created_at) as created_date, COUNT(*) as total_users')
-        //       ->whereBetween('users.created_at', [$startDate, $endDate])
-        //       ->groupBy('created_date');
-      
-        //   // Apply conditions based on the provided region, district, or ward ID
-        //   if (!is_null($regionId)) {
-        //       $query->where('parking_area.region_id', $regionId);
-        //   }
-        //   if (!is_null($districtId)) {
-        //       $query->where('parking_area.district_id', $districtId);
-        //   }
-        //   if (!is_null($wardId)) {
-        //       $query->where('parking_area.ward_id', $wardId);
-        //   }
-      
-        //   // Execute the query
-        //   $userCounts = $query->get();
-      
-        //   // Loop through each day of the month
-        //   while ($startDate->lte($endDate)) {
-        //       // Check if the data for the current day exists in the result
-        //       $userData = $userCounts->firstWhere('created_date', $startDate->toDateString());
-        //       $totalCount = $userData ? $userData->total_users : 0;
-      
-        //       // Add the date and total count to the result array
-        //       $result[] = [
-        //           'created_date' => $startDate->toDateString(),
-        //           'day' => $startDate->day,
-        //           'total_users' => $totalCount,
-        //       ];
-      
-        //       // Move to the next day
-        //       $startDate->addDay();
-        //   }
-      
-        //   return $result;
-
 
         // Get the start and end dates of the specified month
         $startDate = Carbon::createFromDate($year, $month, 1)->startOfMonth();
@@ -109,12 +61,32 @@ class User extends Authenticatable
         // Create an array to hold the result
         $result = [];
 
+        // Query to retrieve total users for each day
+        $query = DB::table('users')
+            ->join('parking_area', 'users.park_id', '=', 'parking_area.park_id')
+            ->selectRaw('DATE(users.created_at) as created_date, COUNT(*) as total_users')
+            ->whereBetween('users.created_at', [$startDate, $endDate])
+            ->groupBy('created_date');
+
+        // Apply conditions based on the provided region, district, or ward ID
+        if (!is_null($regionId)) {
+            $query->where('parking_area.region_id', $regionId);
+        }
+        if (!is_null($districtId)) {
+            $query->where('parking_area.district_id', $districtId);
+        }
+        if (!is_null($wardId)) {
+            $query->where('parking_area.ward_id', $wardId);
+        }
+
+        // Execute the query
+        $userCounts = $query->get();
+
         // Loop through each day of the month
         while ($startDate->lte($endDate)) {
-            // Get the total number of users created on the current day
-            $totalCount = DB::table('users')->whereDate('created_at', $startDate)
-                ->where('role', 2) // Assuming you want to filter only drivers (role = 2)
-                ->count();
+            // Check if the data for the current day exists in the result
+            $userData = $userCounts->firstWhere('created_date', $startDate->toDateString());
+            $totalCount = $userData ? $userData->total_users : 0;
 
             // Add the date and total count to the result array
             $result[] = [
