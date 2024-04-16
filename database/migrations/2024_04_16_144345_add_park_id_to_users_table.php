@@ -14,10 +14,14 @@ class AddParkIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('park_id')->nullable();
-            $table->string('chama_id')->nullable();
-            // If you want to make 'parking_id' a foreign key referencing the 'id' column of a 'parkings' table:
-            // $table->foreign('parking_id')->references('id')->on('parkings')->onDelete('set null');
+                 // Add 'park_id' column if it doesn't already exist
+                 if (!Schema::hasColumn('users', 'park_id')) {
+                    $table->string('park_id')->nullable();
+                }
+                // Add 'chama_id' column if it doesn't already exist
+                if (!Schema::hasColumn('users', 'chama_id')) {
+                    $table->string('chama_id')->nullable();
+                }
         });
     }
 
