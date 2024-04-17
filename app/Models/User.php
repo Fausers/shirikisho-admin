@@ -104,10 +104,21 @@ class User extends Authenticatable
 
     public function getLastestFiveDriver()
     {
-        return DB::table('users')
-            ->where(['archive' => 0, 'role' => 2])
-            ->orderBy('created_at', 'desc')
+        $latestUsersWithParking = DB::table('users as u')
+            ->select(
+                'u.id',
+                'u.full_name',
+                'u.profile_image',
+                'u.park_id',
+                'pa.park_name'
+            )
+            ->join('parking_area as pa', 'u.park_id', '=', 'pa.park_id')
+            ->where('u.archive', 0)
+            ->where('u.role', 2)
+            ->orderByDesc('u.created_at')
             ->limit(5)
             ->get();
+
+        return $latestUsersWithParking;
     }
 }

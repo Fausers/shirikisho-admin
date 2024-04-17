@@ -376,13 +376,13 @@
                                                     </td>
 
                                                     <td>{{$diverr->full_name}}</td>
-                                                    <td>Kamata</td>
+                                                    <td>{{$diverr->park_name}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                         <div class="text-right m-r-20">
-                                            <a href="#!" class=" b-b-primary text-primary">View all Members</a>
+                                            <a href="/driver/driver" class=" b-b-primary text-primary">View all Members</a>
                                         </div>
                                     </div>
                                 </div>

@@ -14,7 +14,9 @@ class UpdateLicenseNumberNullableInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('license_number')->nullable()->change();
+            if (Schema::hasColumn('users', 'license_number')) {
+                $table->string('license_number')->nullable()->change();
+            }
         });
     }
 

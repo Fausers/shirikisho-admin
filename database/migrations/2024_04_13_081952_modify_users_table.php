@@ -13,9 +13,10 @@ class ModifyUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        if (Schema::hasColumn('users', 'password')) {
+            // Alter the password column to allow NULL values
             $table->string('password')->nullable()->change();
-        });
+        }
     }
 
     /**

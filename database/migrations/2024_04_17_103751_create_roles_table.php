@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('next_of_kins')) {
-            Schema::create('next_of_kins', function (Blueprint $table) {
+        if (!Schema::hasTable('roles')) {
+            Schema::create('roles', function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
-                $table->string('phone');
-                $table->string('driver_id')->unique()->nullable();
-                $table->foreignId('user_id')->constrained('users');
-                $table->foreignId('created_by')->nullable()->constrained('users');
-                $table->foreignId('updated_by')->nullable()->constrained('users');
                 $table->timestamps();
                 $table->unsignedInteger('archive')->default(0);
             });
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('next_of_kins');
+        Schema::dropIfExists('roles');
     }
 };

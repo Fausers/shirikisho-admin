@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('associations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('region_id')->constrained('region');
-            $table->foreignId('district_id')->constrained('district');
-            // both in users tables
-            $table->foreignId('chairperson_id')->nullable()->constrained('users');
-            $table->foreignId('secretary_id')->nullable()->constrained('users');
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->timestamps();
-            $table->unsignedInteger('archive')->default(0);
-        });
+        if (!Schema::hasTable('associations')) {
+            Schema::create('associations', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->foreignId('region_id')->constrained('region');
+                $table->foreignId('district_id')->constrained('district');
+                // both in users tables
+                $table->foreignId('chairperson_id')->nullable()->constrained('users');
+                $table->foreignId('secretary_id')->nullable()->constrained('users');
+                $table->foreignId('created_by')->nullable()->constrained('users');
+                $table->foreignId('updated_by')->nullable()->constrained('users');
+                $table->timestamps();
+                $table->unsignedInteger('archive')->default(0);
+            });
+        }
     }
 
     /**

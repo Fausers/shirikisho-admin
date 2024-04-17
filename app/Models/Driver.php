@@ -12,7 +12,7 @@ class Driver extends Model
 
     public function getAllDrivers()
     {
-        return DB::table('users')->where(['archive'=> 0,'role' => 2])->get();
+        return DB::table('users')->where(['archive'=> 0,'role' => 2])->orderByDesc('created_at')->get();
     }
     public function getDriverRow($id)
     {

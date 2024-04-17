@@ -47,10 +47,40 @@ class ParkingController extends Controller
 
             $user_id = Auth::user()->id;
 
+
+            function generateParkId()
+            {
+                $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                $randomString = '';
+                $length = 20; // Adjust the length of the driver_id as needed
+
+                // Generate a random string
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[rand(0, strlen($characters) - 1)];
+                }
+
+                // Append the "_DRVER" suffix
+                $randomString .= '_PARK';
+
+                return $randomString;
+            }
+
+            // Check if driver_id exists, generate a new one if needed
+            $parkIdExists = true;
+            while ($parkIdExists) {
+                $newParkId = generateParkId();
+                $existingDriver = DB::table('parking_area')->where('park_id', $newParkId)->first();
+                if (!$existingDriver) {
+                    $parkIdExists = false;
+                }
+            }
+
+
             if (empty($hidden_id)) :
 
                 ## staff
                 $data = [
+                    'park_id' => $newParkId,
                     'park_name' => $park_name,
                     'number_of_members' => $number_of_members,
                     'park_owner' => $park_owner,
