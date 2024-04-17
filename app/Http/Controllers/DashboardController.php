@@ -12,9 +12,12 @@ class DashboardController extends Controller
     public function index()
     {
         $ServicesModel = new ServiceModel();
+        $userModel = new User();
         $user = Auth::user();
         $region = $ServicesModel->getRegion();
-        return view('dashboard', compact('user','region'));
+
+        $dirvierlatest = $userModel->getLastestFiveDriver();
+        return view('dashboard', compact('user','region','dirvierlatest'));
     }
 
     public function showVerfy()

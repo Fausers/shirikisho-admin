@@ -100,7 +100,7 @@ class DriverController extends Controller
 
                 $insertedDriverId = DB::table('users')->insertGetId($data);
 
-             
+
 
                 UserOTP::create([
                     'otp_code' => $otpCode,
@@ -115,7 +115,6 @@ class DriverController extends Controller
                 $this->sendSms($phone_number, $messages, $reference);
 
                 $message = 'Driver saved successfully';
-                
             } else {
                 ## Update existing driver
 
@@ -158,21 +157,21 @@ class DriverController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'gender' => 'required',
-            // 'dob' => 'required',
-            // 'marital_status' => 'required',
-            // 'residence_address' => 'required',
+            'gender' => 'required',
+            'dob' => 'required',
+            'marital_status' => 'required',
+            'residence_address' => 'required',
             'license_number' => 'required',
             'vehicle_type' => 'required',
             'vehicle_number' => 'required',
-            // 'ownership' => 'required',
+            'ownership' => 'required',
         ]);
 
         if ($validator->fails()) {
             DB::rollBack();
             return response()->json(['status' => 400, 'message' => 'Validation failed', 'errors' => $validator->errors()], 400);
         }
-        
+
 
         try {
             DB::beginTransaction();
@@ -191,9 +190,43 @@ class DriverController extends Controller
 
             $password = str_pad(rand(0, pow(10, 6) - 1), 6, '0', STR_PAD_LEFT);
 
+            $parking_id = $request->input('parking_id');
+            $association_id = $request->input('association_id');
+            $health_insurance = $request->input('health_insurance');
+
             $user_id = Auth::user()->id;
 
+
+            function generateDriverId()
+            {
+                $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                $randomString = '';
+                $length = 20; // Adjust the length of the driver_id as needed
+
+                // Generate a random string
+                for ($i = 0; $i < $length; $i++) {
+                    $randomString .= $characters[rand(0, strlen($characters) - 1)];
+                }
+
+                // Append the "_DRVER" suffix
+                $randomString .= '_DRVER';
+
+                return $randomString;
+            }
+
+            // Check if driver_id exists, generate a new one if needed
+            $driverIdExists = true;
+            while ($driverIdExists) {
+                $newDriverId = generateDriverId();
+                $existingDriver = DB::table('users')->where('driver_id', $newDriverId)->first();
+                if (!$existingDriver) {
+                    $driverIdExists = false;
+                }
+            }
+
+
             $userData = [
+                'driver_id' => $newDriverId,
                 'full_name' => $full_name,
                 'phone_number' => $phone_number,
                 'gender' => $gender,
@@ -205,6 +238,13 @@ class DriverController extends Controller
                 'updated_by' => $user_id,
                 'updated_at' => now(),
                 'profile_image' => $profile_image,
+
+
+                'parking_id' => $parking_id,
+                'association_id' => $association_id,
+                'health_insurance' => $health_insurance,
+                'park_id' => $parking_id,
+                'chama_id' => $association_id,
             ];
 
             $userCondition = [
@@ -216,8 +256,10 @@ class DriverController extends Controller
 
             // Update or insert vehicle details
             $vehicleData = [
+                'driver_id' => $newDriverId,
                 'vehicle_type' => $request->input('vehicle_type'),
                 'vehicle_number' => $request->input('vehicle_number'),
+                'vehicle_insurance' => $request->input('vehicle_insurance'),
                 'ownership' => $request->input('ownership'),
                 'vehicle_owner_name' => $request->input('vehicle_owner_name'),
                 'vehicle_owner_phone' => $request->input('vehicle_owner_phone'),
@@ -230,10 +272,11 @@ class DriverController extends Controller
 
             DB::table('user_vehicle')->insert($vehicleData);
 
-             // Update or insert next of kin details
-             $vehicleData = [
-                'name' => $request->input('name'),
-                'phone' => $request->input('phone'),
+            // Update or insert next of kin details
+            $nextOfKinData = [
+                'driver_id' => $newDriverId,
+                'name' => $request->input('next_of_name'),
+                'phone' => $request->input('next_of_phone'),
                 'user_id' => $id,
                 'created_by' => $user_id,
                 'updated_by' => $user_id,
@@ -241,7 +284,7 @@ class DriverController extends Controller
                 'updated_at' => now(),
             ];
 
-            DB::table('next_of_kins')->insert($vehicleData);
+            DB::table('next_of_kins')->insert($nextOfKinData);
 
             DB::commit();
 

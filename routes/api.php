@@ -31,7 +31,7 @@ use Illuminate\Validation\ValidationException;
         Route::post('/verify-otp-code', [ApiController::class, 'otpCode']);
 
         // New API route to post driver data
-        Route::post('/verify/user', [ApiController::class, 'verifyUser']);
+        Route::get('/verify/user', [ApiController::class, 'verifyUser']);
         Route::post('/save-driver', [DriverController::class, 'driverSave']);
         Route::post('/update-driver/{id}', [DriverController::class, 'updateDrive']);
 

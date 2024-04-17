@@ -369,44 +369,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach($dirvierlatest as $diverr)
                                                 <tr>
                                                     <td style="height: 120px; width: 30px;">
                                                         <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
                                                     </td>
 
-                                                    <td>Juma Hassan Mushi</td>
+                                                    <td>{{$diverr->full_name}}</td>
                                                     <td>Kamata</td>
                                                 </tr>
-                                                <tr>
-                                                    <td style="height: 120px; width: 30px;">
-                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
-                                                    </td>
-                                                    <td>Juma Hassan Mushi</td>
-                                                    <td>Kamata</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 120px; width: 30px;">
-                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
-                                                    </td>
-                                                    <td>Juma Hassan Mushi</td>
-                                                    <td>Kamata</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 120px; width: 30px;">
-                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
-                                                    </td>
-                                                    <td>Juma Hassan Mushi</td>
-                                                    <td>Kamata</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 120px; width: 30px;">
-                                                        <img src="{{ asset('files/profile.png') }}" alt="Description of the image" style="height: 100%; width: 100%;">
-                                                    </td>
-                                                    <td>Juma Hassan Mushi</td>
-                                                    <td>Kamata</td>
-                                                </tr>
-                                                <tr>
-
+                                                @endforeach
                                             </tbody>
                                         </table>
                                         <div class="text-right m-r-20">

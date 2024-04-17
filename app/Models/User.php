@@ -101,4 +101,13 @@ class User extends Authenticatable
 
         return $result;
     }
+
+    public function getLastestFiveDriver()
+    {
+        return DB::table('users')
+            ->where(['archive' => 0, 'role' => 2])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+    }
 }
