@@ -366,6 +366,7 @@ class ApiController extends Controller
         }
     }
 
+
     public function getAssociations($districtId)
     {
         try {
