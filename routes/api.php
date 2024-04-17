@@ -27,6 +27,7 @@ use Illuminate\Validation\ValidationException;
     Route::middleware('auth:sanctum')->group(function () {
 
         // get user and token
+        Route::post('/verify-login-user', [ApiController::class, 'verifyLoginUser']);
 
         Route::post('/verify-otp-code', [ApiController::class, 'otpCode']);
 

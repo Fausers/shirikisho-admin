@@ -114,24 +114,24 @@ class ApiController extends Controller
                 'status' => 200,
                 'message' => 'success',
                 'token' => $user->createToken($request->device_name)->plainTextToken,
-                'code' => $otpCode,
-                'user' => [
-                    'id' => $user->id,
-                    'full_name' => $user->full_name,
-                    'email' => $user->email,
-                    'phone_number' => $user->phone_number,
-                    'gender' => $user->gender,
-                    'status' => $user->status,
-                    'uniform_status' => $user->uniform_status,
-                    'profile_image' => $user->profile_image,
-                    'license_number' => $user->license_number,
-                    'marital_status' => $user->marital_status,
-                    'dob' => $user->dob,
-                    'residence_address' => $user->residence_address,
-                    'parking_id' => $user->parking_id,
-                    'created_at' => $user->created_at,
-                    'updated_at' => $user->updated_at
-                ],
+                // 'code' => $otpCode,
+                // 'user' => [
+                //     'id' => $user->id,
+                //     'full_name' => $user->full_name,
+                //     'email' => $user->email,
+                //     'phone_number' => $user->phone_number,
+                //     'gender' => $user->gender,
+                //     'status' => $user->status,
+                //     'uniform_status' => $user->uniform_status,
+                //     'profile_image' => $user->profile_image,
+                //     'license_number' => $user->license_number,
+                //     'marital_status' => $user->marital_status,
+                //     'dob' => $user->dob,
+                //     'residence_address' => $user->residence_address,
+                //     'parking_id' => $user->parking_id,
+                //     'created_at' => $user->created_at,
+                //     'updated_at' => $user->updated_at
+                // ],
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -140,6 +140,63 @@ class ApiController extends Controller
                 'message' => 'error',
                 'error' => $e->getMessage()
             ]);
+        }
+    }
+
+    public function verifyLoginUser(Request $request)
+    {
+
+        // Begin a database transaction
+        DB::beginTransaction();
+
+        try {
+            $request->validate([
+                'login_user' => 'required',
+            ]);
+
+            $user = Auth::user();
+            $otpCode = $request->input('login_user');
+
+
+            $userOTP = UserOTP::where('user_id', $user->id)
+                ->where('otp_code', $otpCode)
+                ->first();
+
+            if ($userOTP) {
+                $userLogin = User::where('id', $userOTP->user_id)->first();
+                DB::commit();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'success',
+                    'user' => [
+                        'id' => $userLogin->id,
+                        'first_name' => $userLogin->first_name,
+                        'middle_name' => $userLogin->middle_name,
+                        'last_name' => $userLogin->last_name,
+                        'phone_number' => $userLogin->phone_number,
+                        'gender' => $userLogin->gender,
+                        'status' => $userLogin->status,
+                        'uniform_status' => $userLogin->uniform_status,
+                        'profile_image' => $userLogin->profile_image,
+                        'license_number' => $userLogin->license_number,
+                        'marital_status' => $userLogin->marital_status,
+                        'dob' => $userLogin->dob,
+                        'residence_address' => $userLogin->residence_address,
+                        'parking_id' => $userLogin->parking_id,
+                    ],
+                ]);
+            } else {
+                // Handle case where the created user is not found
+                return response()->json([
+                    'status' => 400,
+                    'message' => 'The user associated with the OTP code was not found.',
+                    'error' => 'User not found',
+                ]);
+            }
+        } catch (Exception $e) {
+            // Handle exceptions
+            DB::rollback();
+            return response()->json(['status' => 500, 'message' => 'Internal Server Error', 'error' => $e->getMessage()]);
         }
     }
     public function verifyUser(Request $request)

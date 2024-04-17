@@ -45,18 +45,19 @@ class DriverController extends Controller
 
             // Explicitly define variables based on form fields
             $hidden_id = $request->input('hidden_id');
-            $full_name = $request->input('full_name');
+            // $full_name = $request->input('full_name');
+
+            $first_name = $request->input('first_name');
+            $middle_name = $request->input('middle_name');
+            $last_name = $request->input('last_name');
+
+
             $phone_number = $request->input('phone_number');
             $gender = $request->input('gender');
             $dob = $request->input('dob');
             $marital_status = $request->input('marital_status');
             $residence_address = $request->input('residence_address');
             $license_number = $request->input('license_number');
-            $vehicle_type = $request->input('vehicle_type');
-            $vehicle_number = $request->input('vehicle_number');
-            $ownership = $request->input('ownership');
-            $vehicle_owner_name = $request->input('vehicle_owner_name');
-            $vehicle_owner_phone = $request->input('vehicle_owner_phone');
 
             $user_id = Auth::user()->id;
 
@@ -83,7 +84,10 @@ class DriverController extends Controller
 
 
                 $data = [
-                    'full_name' => $full_name,
+                    // 'full_name' => $full_name,
+                    'first_name' => $first_name,
+                    'middle_name' => $middle_name,
+                    'last_name' => $last_name,
                     'phone_number' => $phone_number,
                     'gender' => $gender,
                     'dob' => $dob,
@@ -122,7 +126,10 @@ class DriverController extends Controller
                 $existingProfileImage = DB::table('users')->where('id', Crypt::decrypt($hidden_id))->value('profile_image');
 
                 $data = [
-                    'full_name' => $full_name,
+                    // 'full_name' => $full_name,
+                    'first_name' => $first_name,
+                    'middle_name' => $middle_name,
+                    'last_name' => $last_name,
                     'phone_number' => empty($phone_number) ? $existingPhoneNumber : $phone_number,
                     'gender' => $gender,
                     'dob' => $dob,
@@ -179,7 +186,11 @@ class DriverController extends Controller
             // Update user details
             $user = DB::table('users')->where('id', $id)->first();
 
-            $full_name = $request->input('full_name') ?? $user->full_name;
+            // $full_name = $request->input('full_name') ?? $user->full_name;
+            $first_name = $request->input('first_name') ?? $user->first_name;
+            $middle_name = $request->input('middle_name') ?? $user->middle_name;
+            $last_name = $request->input('last_name') ?? $user->last_name;
+
             $phone_number = $request->input('phone_number') ?? $user->phone_number;
             $gender = $request->input('gender') ?? $user->gender;
             $dob = $request->input('dob') ?? $user->dob;
@@ -227,7 +238,9 @@ class DriverController extends Controller
 
             $userData = [
                 'driver_id' => $newDriverId,
-                'full_name' => $full_name,
+                'first_name' => $first_name,
+                'middle_name' => $middle_name,
+                'last_name' => $last_name,
                 'phone_number' => $phone_number,
                 'gender' => $gender,
                 'dob' => $dob,
