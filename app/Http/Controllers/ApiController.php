@@ -8,6 +8,7 @@ use App\Models\Parking;
 use App\Models\ServiceModel;
 use App\Models\User;
 use App\Models\UserOTP;
+use App\Traits\PhoneNumberTrait;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,9 @@ class ApiController extends Controller
                 'device_name' => 'required',
             ]);
 
-            $user = User::where('phone_number', $request->phone_number)->first();
+            $phone_format = new PhoneNumberTrait;
+
+            $user = User::where('phone_number', trim($phone_format->clearNumber($request->phone_number),'+'))->first();
 
             if (!$user || !Hash::check($request->password, $user->password)) {
                 if (!$user) {
