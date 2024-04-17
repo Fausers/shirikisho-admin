@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\PhoneNumberTrait;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +15,12 @@ class NextSMSModel extends Model
     {
         // Retrieve data from the request
 
+        $phone_fomart = new PhoneNumberTrait;
+
         // Prepare request data
         $requestData = [
             'from' => 'RMNDR',
-            'to' => $recipientNumber,
+            'to' => trim($phone_fomart->clearNumber($recipientNumber),"+"),
             'text' => $message,
             'reference' => $reference
         ];
