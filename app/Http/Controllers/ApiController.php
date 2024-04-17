@@ -360,7 +360,7 @@ class ApiController extends Controller
         try {
             $parkingModel = new Parking();
             $data = $parkingModel->getParking($wardId);
-            return response()->json(['status' => 200, 'message' => 'Parking fetched successfull', 'data' => $data]);
+            return response()->json(['status' => 200, 'message' => 'Parking fetched successfully', 'data' => $data]);
         } catch (\Exception $e) {
             return response()->json(['status' => 500, 'result' => 'error', 'message' => $e->getMessage()]);
         }
@@ -372,7 +372,7 @@ class ApiController extends Controller
         try {
             $associationsModel = new Association();
             $data = $associationsModel->getAllAssocciationByDistrict($districtId);
-            return response()->json(['status' => 200, 'message' => 'Associations fetched successfull', 'data' => $data]);
+            return response()->json(['status' => 200, 'message' => 'Associations fetched successfully', 'data' => $data]);
         } catch (\Exception $e) {
             return response()->json(['status' => 500, 'result' => 'error', 'message' => $e->getMessage()]);
         }
